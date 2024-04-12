@@ -1,0 +1,21 @@
+
+database: puzzle
+
+user: player / player
+
+table: wordsearch
+
+1,"Puzzle One", 6, 6, “AAAA”, “AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", “AAAA”, 1, “http://images/png”
+2,"Yellow insects", 6, 6, “BBBB”, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", “AAAA”, 2, “http://images/600.png”
+3,"Good grades", 6, 6, “CCCC”, “CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC", “CCCC”, 2, “http://images/600.png”
+
+id          int                 pk         auto_increment
+title       varchar(255)
+cols        int(3)
+rows        int(3)
+words       text
+puzzle      text
+solution    text
+category_id int(3)
+image       varchar(255)
+
