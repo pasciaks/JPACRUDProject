@@ -2,30 +2,57 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 
-<!doctype html> 
+<!doctype html>
 
 <html lang="en">
 
-<jsp:include page="_head.jsp" /> 
+<jsp:include page="_head.jsp" />
 
 <body>
 
 	<jsp:include page="_nav.jsp" />
 
-	<main class="container-fluid">
+	<main class="container text-center puzzle">
 
 
- 		<c:if test="${! empty wordsearch}">  
-			${wordsearch}
-		</c:if> 
 
-		<div class="container"></div>
+
+		<c:if test="${! empty rows}">
+			<c:if test="${! empty cols}">
+				<c:if test="${! empty puzzle}">
+
+					<table border="1">
+						<c:forEach var="row" begin="0" end="${rows-1}">
+							<tr>
+								<c:forEach var="col" begin="0" end="${cols-1}">
+									<c:set var="cellIndex" value="${row * cols + col}" />
+									<c:set var="cellValue"
+										value="${cellIndex >= puzzle.length() ? '' : puzzle.charAt(cellIndex)}" />
+									<td>${cellValue}</td>
+								</c:forEach>
+							</tr>
+						</c:forEach>
+					</table>
+
+					<br>
+
+					<a href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
+
+					<br>
+
+				</c:if>
+			</c:if>
+		</c:if>
+
+		<div class="container">
+			<p></p>
+			<hr>
+		</div>
 
 		<div class="container">
 
 			<form action="getWordsearch.do" method="GET">
-				 ID: <input type="number" name="id" required min="1" /> 
-				 <input
+				ID: <input type="number" name="id" required min="1" /> <input
 					type="submit" value="Show Wordsearch" />
 			</form>
 

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>LOST WORDS</title>
+
+
+    <style>
+        ul,
+        li {
+            list-style: none;
+        }
+    </style>
+
+</head>
+
+<body style="padding-top:10px;cursor:crosshair;margin:0px;background-color: blue;text-align:center;"
+    onresize="body_resize();">
+
+    <canvas id="myCanvas" width="600" height="600"
+        style="background-color:#000000;cursor:crosshair;width:600px;height:600px">
+        You need a CANVAS supported browser Chrome or FireFox!
+    </canvas>
+
+
+
+    <ul id="info">
+        <li> <a style="color:white;"
+                href="
+                ?cols=10&rows=10&puzzleString=ajektubmnexyEC■L■SH■■■■AAE■■E■■■■■HC■NL■■■AM■I■OD■■■RY■M■■■■■■■■■■A■■■■■■■■HS■AY■■■YEL■■NR■■■■■■■■■B">Play</a>
+        </li>
+    </ul>
+
+    <script defer>
+
+
+        var canvas = document.getElementById('myCanvas');
+
+        var ctx = canvas.getContext('2d');
+
+
+        canvas.addEventListener("mousemove", canv_mousemove);
+        canvas.addEventListener("mousedown", canv_mousedown);
+        canvas.addEventListener("mouseup", canv_mouseup);
+        canvas.addEventListener("touchmove", canv_mousemove);
+        canvas.addEventListener("touchstart", canv_mousedown);
+        canvas.addEventListener("touchend", canv_mouseup);
+
+        console.log(canvas);
+
+        var myTileObjects = new Array();
+
+        // Function to get mouse position relative to canvas
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            console.log(evt);
+            try {
+                return {
+                    x: evt.clientX - rect.left,
+                    y: evt.clientY - rect.top
+                };
+            } catch {
+                return {
+                    x: 0,
+                    y: 0
+                };
+            }
+
+        }
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        var globalString = "";
+        var touchsize = 10;
+        var mouseButton = 0;
+        var currentTime = Date.now();
+        document.onselectstart = function () { return false; }
+
+        function scramble(str) {
+            var scrambled = '',
+                src = str.split(''),
+                randomNum;
+            while (src.length > 1) {
+                randomNum = Math.floor(Math.random() * src.length);
+                scrambled += src[randomNum];
+                src.splice(randomNum, 1);
+            }
+            scrambled += src[0];
+            return scrambled;
+        }
+
+
+        var canvWidth, canvHeight;
+
+        canvWidth = 600;
+        canvHeight = 600;
+
+        var curX, curY;
+
+
+        var myTileMessageObjects = new Array(); // array of tiles, designed to be welcome and other message text
+
+        var cols = 10;
+
+        var rows = 10;
+
+        var puzzleData = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ............................Y......................E......................L............S.........N..........H....S......AS.......A......HELLY..T......R..........T.........O..........O.T.......N..........C........NODLEH......S...T..........AS.........SE........L.............V......I.............E......E.........S..........H...........A........S.............N......................DRA....................................................................................................";
+        //puzzleData = "■■■■■■■■■■■■EC■L■SH■■■■AAE■■E■■■■■HC■NL■■■AM■I■OD■■■RY■M■■■■■■■■■■A■■■■■■■■HS■AY■■■YEL■■NR■■■■■■■■■B";
+        puzzleData = scramble(puzzleData);
+
+        //---
+
+
+        window.requestAnimFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+        function body_resize() {
+
+            canvWidth = document.body.clientWidth; // - (document.body.clientWidth/8);
+
+            canvHeight = document.body.clientHeight; // -(document.body.clientHeight/8);
+
+            // canvas.width = canvWidth;
+
+            // canvas.height = canvHeight;
+
+        }
+
+
+        //----------------------------------------------------------------------------------------
+
+        function randRange(min, max) // inclusive random number in range of min-max
+        {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+
+        // also use this class and its tile speed and future move delay to serve as message system
+        // for example, WELCOME message are tiles and words in sentences using tile set !
+        function myTileObject(col, row, locationX, locationY, sizeX, sizeY, destX, destY, dx, dy, textMessage) {
+
+            this.isSelected = false;
+
+            this.textMessage = textMessage; // String.fromCharCode((randRange(1,26) + 64));
+
+            this.lastTimeMoved = (new Date()).getTime();
+
+            this.speed = 0;
+
+            this.col = col;
+
+            this.row = row;
+
+            this.locationX = locationX;
+
+            this.locationY = locationY;
+
+            this.sizeX = sizeX;
+
+            this.sizeY = sizeY;
+
+            this.destX = destX;
+
+            this.destY = destY;
+
+            this.dx = dx;
+
+            this.dy = dy;
+
+            this.foreColor = 'white';
+
+            this.backColor = 'none';
+
+            this.borderColor = 'none';
+
+            if (this.dx === 0) {
+                this.dx = (this.destX - this.locationX) / sizeX;//Math.abs(this.destX - this.locationX);
+            }
+
+            if (this.dy === 0) {
+                this.dy = (this.destY - this.locationY) / sizeY;//Math.abs(this.destY - this.locationY);
+            }
+
+
+            return this;
+        }
+
+        myTileObject.prototype.isTouched = function (px, py) {
+
+            var buffer = 0; // possible use to inflate touch rectangle
+
+            this.isSelected = false;
+
+            if (px > this.locationX - buffer) {
+                if (px < (this.locationX + this.sizeX + buffer)) {
+
+                    if (py > this.locationY - buffer) {
+
+                        if (py < (this.locationY + this.sizeY + buffer)) {
+                            this.isSelected = true;
+
+                        }
+                    }
+
+
+                }
+            }
+
+        }
+
+        // TODO: add additional animations - consider messages and menu item objects
+        myTileObject.prototype.autoMoveObject = function (currentTime) {
+            // if there is a speed, is it time to move yet?
+
+
+            if (!((currentTime - this.lastTimeMoved) > this.speed)) {
+                return;
+            }
+
+
+            // move in x direction, unless it should be snapped within dx pixels
+            if (Math.abs(this.locationX - this.destX) > Math.abs(this.dx)) //Math.abs(this.dx)
+            {
+                this.locationX += this.dx;
+            }
+            else {
+                this.locationX = this.destX;//+ ( 10 - randRange(0,20));	this.dx = (this.destX - this.locationX ) / 15;
+            }
+
+            // move in y direction, unless it should be snapped within dy pixels
+            if (Math.abs(this.locationY - this.destY) > Math.abs(this.dy)) //Math.abs(this.dy)
+            {
+                this.locationY += this.dy;
+            }
+            else {
+                this.locationY = this.destY;//+ ( 10 - randRange(0,20));	this.dy = (this.destY - this.locationY ) / 15;
+            }
+
+            // moved so update lastTimeMoved
+            this.lastTimeMoved = currentTime;
+
+        }
+
+        myTileObject.prototype.moveObject = function (dx, dy) {
+            this.locationX += dx;
+
+            this.locationY += dy;
+
+            // moved so update lastTimeMoved
+            this.lastTimeMoved = currentTime;
+
+            return this;
+        }
+
+        myTileObject.prototype.setLocation = function (whereX, whereY, steps) {
+            if (steps < 1) steps = 1;
+
+            this.locationX = whereX;
+            this.locationY = whereY;
+
+            this.dx = (this.destX - this.locationX) / steps;
+            this.dy = (this.destY - this.locationY) / steps;
+
+            // moved so update lastTimeMoved
+            this.lastTimeMoved = currentTime;
+
+            return this;
+        }
+
+        myTileObject.prototype.draw = function () {
+
+            if (mouseButton == 1) {
+                ctx.fillStyle = 'rgba(122, 11, 33, .7)';
+            }
+
+            // this.locationX += 15;
+            // this.locationY += 15;
+
+
+            //if (this.textMessage === " ") return;
+
+            if (this.backColor === 'none') {
+            }
+            else {
+
+                // back
+                ctx.fillStyle = this.backColor;
+                ctx.fillRect(this.locationX, this.locationY, this.sizeX, this.sizeY);
+
+            }
+
+
+            if (this.borderColor === 'none') {
+                ctx.strokeStyle = 'yellow';
+                ctx.strokeRect(this.locationX + 1, this.locationY + 1, this.sizeX, this.sizeY);
+                ctx.stroke();
+            } else {
+
+                // border
+                ctx.strokeStyle = this.borderColor;
+
+                if (this.textMessage === " ") {
+                    ctx.strokeStyle = 'blue';
+                }
+                ctx.fillRect(this.locationX + 1, this.locationY + 1, this.sizeX, this.sizeY);
+                ctx.strokeRect(this.locationX, this.locationY, this.sizeX, this.sizeY);
+                ctx.stroke();
+            }
+
+            ctx.font = '14pt Verdana';
+
+            // textAlign aligns text horizontally relative to placement
+            ctx.textAlign = 'center';
+
+            // textBaseline aligns text vertically relative to font style
+            ctx.textBaseline = 'middle';
+
+            ctx.strokeStyle = '#FF0000';
+            ctx.strokeRect(this.locationX, this.locationY, this.sizeX, this.sizeY);
+            ctx.stroke();
+
+            if (this.foreColor === 'none') {
+
+            }
+            else {
+                // fore
+                ctx.fillStyle = this.foreColor;
+                // draw the textMessage
+                ctx.fillText(this.textMessage, this.locationX + this.sizeX / 2, this.locationY + this.sizeY / 2);
+            }
+
+            // this.locationX -= 15;
+            // this.locationY -= 15;
+
+            // if (mouseButton == 1) {
+            //     var ww = 2;
+            //     var hh = 2;
+            //     ctx.strokeStyle = 'blue';
+            //     ctx.fillStyle = 'rgba(122, 11, 33, .3)';
+            //     ctx.strokeRect(this.locationX + (this.sizeX / 2) - 3, this.locationY + (this.sizeY / 2) - 3, 6, 6);
+            // }
+        }
+
+        function clearObjects() {
+            myTileObjects.length = 0; // = new Array();
+
+        }
+
+        //TODO: improve this for leakage / reuse existing object
+        function createAndAddMyTileObject(col, row, locationX, locationY, sizeX, sizeY, destX, destY, dx, dy, textMessage) {
+
+            var newMyTileObject = new myTileObject(col, row, locationX, locationY, sizeX, sizeY, destX, destY, dx, dy, textMessage);
+
+            myTileObjects.push(newMyTileObject);
+
+            return newMyTileObject;
+        }
+
+        function mainLoop() {
+            updateView();
+        }
+
+        function updateView() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            currentTime = (new Date()).getTime();
+
+            for (var i = 0; i < myTileObjects.length; i++) {
+                myTileObjects[i].autoMoveObject(currentTime);
+
+                myTileObjects[i].isTouched(curX, curY); // slow way because it has to walk through all boxes
+
+                myTileObjects[i].draw();
+
+            }
+
+        }
+
+        function initApplication(cc, rr, pd) {
+            cols = cc;
+            rows = rr;
+
+            sizex = 600 / cols;
+            sizey = 600 / rows;
+
+            puzzleData = pd;
+
+
+
+            //puzzleData = scramble(puzzleData);
+
+            body_resize();
+
+            clearObjects();
+
+            var charIndex = 0;
+
+            for (var r = 0; r < rows; r++) {
+                for (var c = 0; c < cols; c++) {
+
+                    // col,row,
+                    // locationX,locationY,
+                    // sizeX,sizeY,
+                    // destX,destY,
+                    // dx,dy);
+
+                    createAndAddMyTileObject(
+                        c, r,
+                        Math.random() * 600, Math.random() * 600,//c*225,r*225,
+                        sizex, sizey,
+                        c * sizex, r * sizey,
+                        0, 0,
+                        puzzleData.charAt(charIndex++));
+
+                }
+            }
+
+
+        }
+
+        puzzleString = getParameterByName('puzzleString');
+
+        if (puzzleString != "") {
+            cols = getParameterByName('cols');
+            rows = getParameterByName('rows');
+            initApplication(cols, rows, puzzleString);
+        } else {
+            initApplication(cols, rows, "■■■■■■■■■■■■EC■L■SH■■■■AAE■■E■■■■■HC■NL■■■AM■I■OD■■■RY■M■■■■■■■■■■A■■■■■■■■HS■AY■■■YEL■■NR■■■■■■■■■B");
+        }
+
+        //positionAll(Math.random() * canvWidth, Math.random() * canvHeight);
+
+        function positionAll(x, y) {
+
+            for (var i = 0; i < myTileObjects.length; i++) {
+                myTileObjects[i].setLocation(x, y, randRange(12, 50));
+
+            }
+
+        }
+
+        (function animloop() {
+            requestAnimFrame(animloop);
+            mainLoop();
+        })();
+
+
+        //----------------------------------------------------------------------------------------
+
+
+        function distanceBetweenx1y1x2y2(x1, y1, x2, y2) {
+            return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+        }
+
+
+        function canv_mousemove(evt) {
+
+
+
+            canvas = document.getElementById('myCanvas');
+
+            // var rect = canvas.getBoundingClientRect();
+
+            // curX = evt.clientX - canvas.offsetLeft - rect.left;
+
+            // curY = evt.clientY - canvas.offsetTop - rect.top;
+
+            var mousePos = getMousePos(canvas, evt);
+            var curX = mousePos.x;
+            var curY = mousePos.y;
+
+            //document.getElementById('info').innerHTML = curX + "," + curY + " " + globalString;
+
+            // if (mouseButton === 1) positionAll(curX, curY);
+
+            if (mouseButton === 1) {
+                for (var i = 0; i < myTileObjects.length; i++) {
+                    let obj = myTileObjects[i];
+                    let dd = distanceBetweenx1y1x2y2(curX - obj.sizeX / 2, curY - obj.sizeY / 2, myTileObjects[i].locationX, myTileObjects[i].locationY);
+                    //console.log(dd);
+                    if (dd < touchsize) {
+                        if (obj.borderColor === 'none') {
+                            globalString += obj.textMessage;
+                        }
+                        myTileObjects[i].borderColor = 'red';
+                    }
+                }
+            }
+
+        }
+
+        function canv_mousedown(evt) {
+            // initApplication(21, 21, "NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY ABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZNOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY ");
+
+            globalString = "";
+            mouseButton = 1;
+
+
+            // var rect = canvas.getBoundingClientRect();
+
+            // curX = evt.clientX - canvas.offsetLeft - rect.left;
+
+            // curY = evt.clientY - canvas.offsetTop - rect.top;
+
+            canvas = document.getElementById('myCanvas');
+            var mousePos = getMousePos(canvas, evt);
+            var curX = mousePos.x;
+            var curY = mousePos.y;
+
+            if (mouseButton === 1) {
+                for (var i = 0; i < myTileObjects.length; i++) {
+                    let obj = myTileObjects[i];
+                    let dd = distanceBetweenx1y1x2y2(curX - obj.sizeX / 2, curY - obj.sizeY / 2, myTileObjects[i].locationX, myTileObjects[i].locationY);
+                    //console.log(dd);
+                    //myTileObjects[i].borderColor = 'none';
+                    if (dd < touchsize) {
+                        if (obj.borderColor === 'none') {
+                            globalString += obj.textMessage;
+                        }
+                        myTileObjects[i].borderColor = 'red';
+                    }
+                }
+            }
+
+            //   positionAll(curX, curY);
+
+        }
+
+        function canv_mouseup(evt) {
+
+            //alert(globalString);
+
+            var ul = document.getElementById('info');
+            var li = document.createElement('li');
+            li.textContent = globalString;
+            ul.appendChild(li);
+
+            globalString = "";
+
+            mouseButton = 2;
+
+
+            // var rect = canvas.getBoundingClientRect();
+
+            // curX = evt.clientX - canvas.offsetLeft - rect.left;
+
+            // curY = evt.clientY - canvas.offsetTop - rect.top;
+
+            canvas = document.getElementById('myCanvas');
+            var mousePos = getMousePos(canvas, evt);
+            var curX = mousePos.x;
+            var curY = mousePos.y;
+
+            if (mouseButton === 2) {
+                for (var i = 0; i < myTileObjects.length; i++) {
+                    myTileObjects[i].borderColor = 'none';
+                }
+            }
+
+            //	initApplication(21,21,"NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY ABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZNOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY ");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
