@@ -24,6 +24,9 @@
 
 #### Structure
 
+```
+
+
 JPACrudProject
 ├── 1.png
 ├── BootPuzzles
@@ -219,12 +222,14 @@ JPACrudProject
 
 114 directories, 78 files
 
+```
+
 <hr>
 
 ![Screenshot Welcome Page](1.png)
 
 ![Database Schema](2.png)
 
-![Misc Info](3.png)
+![The Wordsearch util usage](3.png)
 
 [About The Developer](https://github.com/pasciaks/)
