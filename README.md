@@ -226,10 +226,24 @@ JPACrudProject
 
 <hr>
 
+### The welcome page dynamically creates and renders a puzzle.
+
 ![Screenshot Welcome Page](1.png)
+
+<hr>
+
+### The database consists of only 1 single table.
 
 ![Database Schema](2.png)
 
+<hr>
+
+### The power of this app comes from a weeks long development of a word-searching hiding utility and related random/path based algorithms developed by myself since the start of this cohort.
+
 ![The Wordsearch util usage](3.png)
+
+<hr>
+
+### Contact me with any questions or reasonable, remote, part-time/full-time employment offers!
 
 [About The Developer](https://github.com/pasciaks/)
