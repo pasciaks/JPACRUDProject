@@ -14,28 +14,45 @@
 	crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css?family=Abel|Anton"
 	rel="stylesheet">
-	
-	<link rel="icon" 
-      type="image/png" 
-      href="favicon.png" />
+
+<link rel="icon" type="image/png" href="favicon.png" />
 
 <style>
-.puzzle {
+* {
 	font-family: Courier, monospace;
 	font-size: 12px;
 }
 
 table {
-      border-collapse: collapse;
+	border-collapse: collapse;
+	width: 100%;
+	border: 2px solid red;
+}
 
-    }
+tr {
+	height: 24px;
+}
 
-    th, td {
-    width: 18px;
-      border: 1px solid #ddd;
-/*       padding-left: 2px;
-      padding-right: 2px; */
-      text-align: center; /* Center text horizontally */
-    }
+th, td {
+	width: 20px;
+	border: 1px solid #ddd;
+	text-align: center;
+	border: 1px solid #ddd;
+}
+
+.row {
+	margin: 10px;
+	padding: 10px;
+
+}
+
+input[type="number"] {
+	width: 140px;
+}
+
+input[type="text"] {
+	width: 400px;
+}
 </style>
+
 </head>

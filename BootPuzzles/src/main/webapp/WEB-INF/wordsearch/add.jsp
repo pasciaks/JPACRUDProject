@@ -1,24 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+
 <!doctype html>
+
 <html lang="en">
 
-<jsp:include page="_head.jsp" />
+<jsp:include page="../_head.jsp" />
 
 <body>
 
-	<jsp:include page="_nav.jsp" />
+	<jsp:include page="../_nav.jsp" />
 
-	<main class="container-fluid">
+	<main class="container puzzle">
 
-		<c:if test="${! empty error}">
-			<div class="alert alert-danger" role="alert">${error}</div>
-		</c:if>
+		<div class="container p-2 m-2">
 
-		<c:if test="${! empty message}">
-			<div class="alert alert-info" role="alert">${message}</div>
-		</c:if>
+			<form class="m-2 p-2" action="postWordsearch.do" method="POST"
+				enctype="multipart/form-data">
+
+				<jsp:include page="_form.jsp" />
+
+				<br>
+
+				<div class="row">
+					<div class="col">
+						<input type="submit" class="w-100 btn btn-primary"
+							value="Add new Wordsearch" />
+					</div>
+				</div>
+
+			</form>
+
+		</div>
 
 	</main>
 
@@ -34,8 +48,13 @@
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 
-	<jsp:include page="_tail.jsp" />
+	<jsp:include page="../_tail.jsp" />
 
+	
+	<br>
+	<br>
+	<br>
+	
 
 </body>
 

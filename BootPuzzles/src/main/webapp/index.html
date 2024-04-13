@@ -2,8 +2,25 @@
 <html lang="en">
 
 <head>
-<title>LOST WORDS</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Puzzle - Wordsearch</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+	integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css?family=Abel|Anton"
+	rel="stylesheet">
 
+<link rel="icon" type="image/png" href="favicon.png" />
+
+<title>WORDSEARCH PUZZLE - LOST WORDS</title>
 
 <style>
 ul, li {
@@ -32,21 +49,37 @@ a:visted {
 	style="padding-top: 10px; cursor: crosshair; margin: 0px; background-color: blue; text-align: center;"
 	onresize="body_resize();">
 
-	<canvas id="myCanvas" width="600" height="600"
-		style="background-color: #000000; cursor: crosshair; width: 600px; height: 600px">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col">
+
+				<canvas id="myCanvas" width="600" height="600"
+					style="background-color: #000000; cursor: crosshair; width: 600px; height: 600px">
         You need a CANVAS supported browser Chrome or FireFox!
     </canvas>
 
-	<div style="color: white;">
-		<h1>LOST WORDS</h1>
-		<a href="/" class="btn btn-success">Home</a>
-		<hr>
+			</div>
+
+			<div class="col">
+
+				<div style="color: white;">
+					<h1>LOST WORDS</h1>
+					<button class="btn btn-primary" onclick="window.close();">Close</button>
+					<hr>
+				</div>
+
+				<br>
+				<ul id="info">
+					<li></li>
+				</ul>
+
+			</div>
+
+		</div>
 	</div>
-
-
-	<ul id="info">
-		<li></li>
-	</ul>
 
 	<script defer>
 
@@ -108,10 +141,10 @@ a:visted {
             return scrambled;
         }
 
-
         var canvWidth, canvHeight;
 
         canvWidth = 600;
+        
         canvHeight = 600;
 
         var curX, curY;
@@ -136,17 +169,11 @@ a:visted {
         })();
 
         function body_resize() {
-
             canvWidth = document.body.clientWidth; // - (document.body.clientWidth/8);
-
             canvHeight = document.body.clientHeight; // -(document.body.clientHeight/8);
-
             // canvas.width = canvWidth;
-
             // canvas.height = canvHeight;
-
         }
-
 
         //----------------------------------------------------------------------------------------
 
@@ -322,16 +349,6 @@ a:visted {
                 ctx.fillText(this.textMessage, this.locationX + this.sizeX / 2, this.locationY + this.sizeY / 2);
             }
 
-            // this.locationX -= 15;
-            // this.locationY -= 15;
-
-            // if (mouseButton == 1) {
-            //     var ww = 2;
-            //     var hh = 2;
-            //     ctx.strokeStyle = 'blue';
-            //     ctx.fillStyle = 'rgba(122, 11, 33, .3)';
-            //     ctx.strokeRect(this.locationX + (this.sizeX / 2) - 3, this.locationY + (this.sizeY / 2) - 3, 6, 6);
-            // }
         }
 
         function clearObjects() {
@@ -519,6 +536,18 @@ a:visted {
         }
 
     </script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
 
 </body>
 

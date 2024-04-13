@@ -15,6 +15,14 @@
 	<main class="container text-center puzzle">
 
 		<div class="container">
+
+			<div class="row">
+				<div class="col">
+					<h3>${title}</h3>
+					<p>${sentence}</p>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col">
 					<c:if test="${! empty rows}">
@@ -36,7 +44,7 @@
 
 								<br>
 
-								<a
+								<a target="_blank"
 									href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
 
 								<br>
@@ -65,7 +73,7 @@
 
 								<br>
 
-								<a
+								<a target="_blank"
 									href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
 
 								<br>
@@ -77,66 +85,18 @@
 			</div>
 		</div>
 
+		<div class="container p-1 m-1">
 
+			<h1>
+				<label for="id">Search by Id:</label>
+			</h1>
 
-
-		<div class="container">
-			<p></p>
-			<hr>
-		</div>
-
-		<div class="container bg-light p-2 m-2">
-			<br>
 			<form action="getWordsearch.do" method="GET">
-				ID: <input type="number" name="id" required min="1" /> <input
-					type="submit" value="Show Wordsearch" />
-			</form>
-			<br>
-		</div>
-
-		<div class="container bg-success">
-			<br>
-
-			<form class="m-2 p-2" action="postWordsearch.do" method="POST"
-				enctype="multipart/form-data">
-
-				<div class="form-control">
-					<label for="title">Title: <input type="text" name="title"
-						required />
-					</label>
-				</div>
-
-				<div class="form-control">
-					<label for="sentence">Sentence: <input type="text"
-						name="sentence" required />
-					</label>
-				</div>
-
-				<div class="form-control">
-					<label for="cols">Columns: <input required min="4" max="42"
-						type="number" name="cols" required />
-					</label>
-				</div>
-
-				<div class="form-control">
-					<label for="rows">Rows: <input required min="4" max="42"
-						type="number" name="rows" required />
-					</label>
-				</div>
-
-				<div class="form-control">
-					<label for="file">Image: <input id="file" type="file"
-						name="file" accept="image/png" />
-					</label>
-				</div>
-
-				<input type="submit" class="btn btn-primary"
-					value="Add new Wordsearch" /> <br>
-
+				<input type="number" name="id" required min="1" /> <input
+					type="submit" class="btn btn-success" value="Search By Id" />
 			</form>
 
 		</div>
-
 
 	</main>
 
@@ -152,7 +112,7 @@
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 
-	<%-- 	<jsp:include page="_tail.jsp" /> --%>
+	<jsp:include page="_tail.jsp" />
 
 </body>
 

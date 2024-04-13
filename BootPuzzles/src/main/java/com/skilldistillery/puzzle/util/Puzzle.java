@@ -22340,6 +22340,20 @@ public class Puzzle {
 		for (int i = 0; i < wordLength; i++) {
 			currentRow += path.get(i).row; // 1st coordinate offsets are 0,0
 			currentCol += path.get(i).col;
+
+			if (currentRow < 0) {
+				return false;
+			}
+			if (currentCol < 0) {
+				return false;
+			}
+			if (currentRow >= rows) {
+				return false;
+			}
+			if (currentCol >= cols) {
+				return false;
+			}
+
 			try {
 
 				if (!hideOnlyInBlankSquares) {

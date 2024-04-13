@@ -21,6 +21,7 @@
     - Attention to detail, read and re-read requirements.
     - Make it work, then make it look good.
     - Focus on the requirements, then stretch the goals!
+    - Be careful not to mix up cols/rows on edit!
 
 #### Structure
 
@@ -250,7 +251,6 @@ JPACrudProject
 <hr>
 
 ### Contact me with any questions or reasonable, remote, part-time/full-time employment offers!
-
 
 [About The Developer](https://github.com/pasciaks/)
 

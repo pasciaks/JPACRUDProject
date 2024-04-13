@@ -1,35 +1,164 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+
 <!doctype html>
+
 <html lang="en">
 
-<style>
-img {
-max-height:100px;
-}</style>
+<jsp:include page="_head.jsp" />
 
 <body>
 
+	<jsp:include page="_nav.jsp" />
+
 	<main class="container text-center">
+
+		<c:if test="${! empty error}">
+			<div class="alert alert-danger" role="alert">${error}</div>
+		</c:if>
 
 		<c:if test="${! empty message}">
 			<div class="alert alert-success" role="alert">${message}</div>
+		</c:if>
+
+		<c:if test="${! empty wordsearch}">
+
+			<c:set var="cols" value="${wordsearch.cols}" />
+			<c:set var="rows" value="${wordsearch.rows}" />
+			<c:set var="puzzle" value="${wordsearch.puzzle}" />
+			<c:set var="solution" value="${wordsearch.solution}" />
+			<c:set var="image" value="${wordsearch.image}" />
+
+			<div class="container text-center p-2 m-2">
+				${wordsearch.image}<br> <img style="max-height: 100px"
+					src="${myUrl}/uploads/${image}" class="img-fluid"
+					alt="${myUrl}/uploads/${image}"
+					onerror="this.style.display='none';">
+			</div>
+
+			<div class="bordered">
+
+				<table>
+
+					<tr>
+						<th>Id</th>
+						<th>Title</th>
+						<th>Sentence</th>
+						<th>Columns</th>
+						<th>Rows</th>
+						<th>Puzzle</th>
+						<th>Solution</th>
+						<th>Image</th>
+
+					</tr>
+
+					<tbody>
+						<tr>
+							<td>${wordsearch.id}</td>
+							<td>${wordsearch.title}</td>
+							<td>${wordsearch.sentence}</td>
+							<td>${wordsearch.cols}</td>
+							<td>${wordsearch.rows}</td>
+							<td>
+
+								<div class="col">
+									<c:if test="${! empty rows}">
+										<c:if test="${! empty cols}">
+											<c:if test="${! empty puzzle}">
+
+												<table border="1">
+													<c:forEach var="row" begin="0" end="${rows-1}">
+														<tr>
+															<c:forEach var="col" begin="0" end="${cols-1}">
+																<c:set var="cellIndex" value="${row * cols + col}" />
+																<c:set var="cellValue"
+																	value="${cellIndex >= puzzle.length() ? '' : puzzle.charAt(cellIndex)}" />
+																<td>${cellValue}</td>
+															</c:forEach>
+														</tr>
+													</c:forEach>
+												</table>
+
+												<br>
+
+												<a target="_blank"
+													href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
+
+												<br>
+
+											</c:if>
+										</c:if>
+									</c:if>
+								</div>
+
+							</td>
+
+							<td>
+
+								<div class="col">
+									<c:if test="${! empty rows}">
+										<c:if test="${! empty cols}">
+											<c:if test="${! empty solution}">
+
+												<table border="1">
+													<c:forEach var="row" begin="0" end="${rows-1}">
+														<tr>
+															<c:forEach var="col" begin="0" end="${cols-1}">
+																<c:set var="cellIndex" value="${row * cols + col}" />
+																<c:set var="cellValue"
+																	value="${cellIndex >= solution.length() ? '' : solution.charAt(cellIndex)}" />
+																<td>${cellValue}</td>
+															</c:forEach>
+														</tr>
+													</c:forEach>
+												</table>
+
+												<br>
+
+												<a target="_blank"
+													href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
+
+												<br>
+
+											</c:if>
+										</c:if>
+									</c:if>
+								</div>
+
+							</td>
+
+							<td>${wordsearch.image}</td>
 
 
-		<p>Details</p>
+						</tr>
+					</tbody>
 
-		<p>${title}</p>
+				</table>
 
-		<p>${sentence}</p>
 
-		<p>${cols}</p>
+				<div class="container m-2">
+					<div class="row">
+						<div class="col">
+							<form method="GET" action="edit.do">
+								<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+									type="submit" class="btn btn-warning" value="Edit Wordsearch" />
+							</form>
+						</div>
+						<div class="col">
+							<form method="POST" action="delete.do"
+								onsubmit="return confirm('Are you sure?');">
+								<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+									type="submit" class="btn btn-danger" value="Delete Wordsearch" />
+							</form>
+						</div>
+					</div>
+				</div>
 
-		<p>${rows}</p>
 
-		<img src="uploads/${uuid}" class="img-fluid" alt="Responsive image">
-		
-				</c:if>
+			</div>
+
+		</c:if>
 
 	</main>
 
@@ -45,8 +174,7 @@ max-height:100px;
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 
-
-
+	<jsp:include page="_tail.jsp" />
 
 </body>
 
