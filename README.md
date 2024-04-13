@@ -251,4 +251,7 @@ JPACrudProject
 
 ### Contact me with any questions or reasonable, remote, part-time/full-time employment offers!
 
+
 [About The Developer](https://github.com/pasciaks/)
+
+![Screenshot Welcome Page](1.png)
