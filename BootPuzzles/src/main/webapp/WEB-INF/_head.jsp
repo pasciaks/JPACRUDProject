@@ -14,6 +14,10 @@
 	crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css?family=Abel|Anton"
 	rel="stylesheet">
+	
+	<link rel="icon" 
+      type="image/png" 
+      href="favicon.png" />
 
 <style>
 .puzzle {

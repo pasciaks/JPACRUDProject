@@ -2,42 +2,57 @@
 <html lang="en">
 
 <head>
-    <title>LOST WORDS</title>
+<title>LOST WORDS</title>
 
 
-    <style>
-        ul,
-        li {
-            list-style: none;
-        }
-    </style>
+<style>
+ul, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: white;
+	font-size: 20px;
+}
+
+a:hover {
+	color: yellow;
+}
+
+a:visted {
+	color: white;
+}
+</style>
 
 </head>
 
-<body style="padding-top:10px;cursor:crosshair;margin:0px;background-color: blue;text-align:center;"
-    onresize="body_resize();">
+<body
+	style="padding-top: 10px; cursor: crosshair; margin: 0px; background-color: blue; text-align: center;"
+	onresize="body_resize();">
 
-    <canvas id="myCanvas" width="600" height="600"
-        style="background-color:#000000;cursor:crosshair;width:600px;height:600px">
+	<canvas id="myCanvas" width="600" height="600"
+		style="background-color: #000000; cursor: crosshair; width: 600px; height: 600px">
         You need a CANVAS supported browser Chrome or FireFox!
     </canvas>
 
+	<div style="color: white;">
+		<h1>LOST WORDS</h1>
+		<a href="/" class="btn btn-success">Home</a>
+		<hr>
+	</div>
 
 
-    <ul id="info">
-        <li> <a style="color:white;"
-                href="
-                ?cols=10&rows=10&puzzleString=ajektubmnexyEC■L■SH■■■■AAE■■E■■■■■HC■NL■■■AM■I■OD■■■RY■M■■■■■■■■■■A■■■■■■■■HS■AY■■■YEL■■NR■■■■■■■■■B">Play</a>
-        </li>
-    </ul>
+	<ul id="info">
+		<li></li>
+	</ul>
 
-    <script defer>
-
+	<script defer>
 
         var canvas = document.getElementById('myCanvas');
 
         var ctx = canvas.getContext('2d');
-
 
         canvas.addEventListener("mousemove", canv_mousemove);
         canvas.addEventListener("mousedown", canv_mousedown);
@@ -50,7 +65,6 @@
 
         var myTileObjects = new Array();
 
-        // Function to get mouse position relative to canvas
         function getMousePos(canvas, evt) {
             var rect = canvas.getBoundingClientRect();
             console.log(evt);
@@ -102,7 +116,6 @@
 
         var curX, curY;
 
-
         var myTileMessageObjects = new Array(); // array of tiles, designed to be welcome and other message text
 
         var cols = 10;
@@ -110,11 +123,8 @@
         var rows = 10;
 
         var puzzleData = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ............................Y......................E......................L............S.........N..........H....S......AS.......A......HELLY..T......R..........T.........O..........O.T.......N..........C........NODLEH......S...T..........AS.........SE........L.............V......I.............E......E.........S..........H...........A........S.............N......................DRA....................................................................................................";
-        //puzzleData = "■■■■■■■■■■■■EC■L■SH■■■■AAE■■E■■■■■HC■NL■■■AM■I■OD■■■RY■M■■■■■■■■■■A■■■■■■■■HS■AY■■■YEL■■NR■■■■■■■■■B";
+        puzzleData = "■■■■■■■■■■■■EC■L■SH■■■■AAE■■E■■■■■HC■NL■■■AM■I■OD■■■RY■M■■■■■■■■■■A■■■■■■■■HS■AY■■■YEL■■NR■■■■■■■■■B";
         puzzleData = scramble(puzzleData);
-
-        //---
-
 
         window.requestAnimFrame = (function () {
             return window.requestAnimationFrame ||
@@ -145,9 +155,6 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-
-        // also use this class and its tile speed and future move delay to serve as message system
-        // for example, WELCOME message are tiles and words in sentences using tile set !
         function myTileObject(col, row, locationX, locationY, sizeX, sizeY, destX, destY, dx, dy, textMessage) {
 
             this.isSelected = false;
@@ -209,27 +216,19 @@
 
                         if (py < (this.locationY + this.sizeY + buffer)) {
                             this.isSelected = true;
-
                         }
                     }
-
-
                 }
             }
 
         }
 
-        // TODO: add additional animations - consider messages and menu item objects
         myTileObject.prototype.autoMoveObject = function (currentTime) {
-            // if there is a speed, is it time to move yet?
-
 
             if (!((currentTime - this.lastTimeMoved) > this.speed)) {
                 return;
             }
 
-
-            // move in x direction, unless it should be snapped within dx pixels
             if (Math.abs(this.locationX - this.destX) > Math.abs(this.dx)) //Math.abs(this.dx)
             {
                 this.locationX += this.dx;
@@ -238,7 +237,6 @@
                 this.locationX = this.destX;//+ ( 10 - randRange(0,20));	this.dx = (this.destX - this.locationX ) / 15;
             }
 
-            // move in y direction, unless it should be snapped within dy pixels
             if (Math.abs(this.locationY - this.destY) > Math.abs(this.dy)) //Math.abs(this.dy)
             {
                 this.locationY += this.dy;
@@ -247,7 +245,6 @@
                 this.locationY = this.destY;//+ ( 10 - randRange(0,20));	this.dy = (this.destY - this.locationY ) / 15;
             }
 
-            // moved so update lastTimeMoved
             this.lastTimeMoved = currentTime;
 
         }
@@ -257,7 +254,6 @@
 
             this.locationY += dy;
 
-            // moved so update lastTimeMoved
             this.lastTimeMoved = currentTime;
 
             return this;
@@ -272,7 +268,6 @@
             this.dx = (this.destX - this.locationX) / steps;
             this.dy = (this.destY - this.locationY) / steps;
 
-            // moved so update lastTimeMoved
             this.lastTimeMoved = currentTime;
 
             return this;
@@ -284,22 +279,13 @@
                 ctx.fillStyle = 'rgba(122, 11, 33, .7)';
             }
 
-            // this.locationX += 15;
-            // this.locationY += 15;
-
-
-            //if (this.textMessage === " ") return;
 
             if (this.backColor === 'none') {
             }
             else {
-
-                // back
                 ctx.fillStyle = this.backColor;
                 ctx.fillRect(this.locationX, this.locationY, this.sizeX, this.sizeY);
-
             }
-
 
             if (this.borderColor === 'none') {
                 ctx.strokeStyle = 'yellow';
@@ -307,7 +293,7 @@
                 ctx.stroke();
             } else {
 
-                // border
+
                 ctx.strokeStyle = this.borderColor;
 
                 if (this.textMessage === " ") {
@@ -320,10 +306,8 @@
 
             ctx.font = '14pt Verdana';
 
-            // textAlign aligns text horizontally relative to placement
             ctx.textAlign = 'center';
 
-            // textBaseline aligns text vertically relative to font style
             ctx.textBaseline = 'middle';
 
             ctx.strokeStyle = '#FF0000';
@@ -334,9 +318,7 @@
 
             }
             else {
-                // fore
                 ctx.fillStyle = this.foreColor;
-                // draw the textMessage
                 ctx.fillText(this.textMessage, this.locationX + this.sizeX / 2, this.locationY + this.sizeY / 2);
             }
 
@@ -357,7 +339,6 @@
 
         }
 
-        //TODO: improve this for leakage / reuse existing object
         function createAndAddMyTileObject(col, row, locationX, locationY, sizeX, sizeY, destX, destY, dx, dy, textMessage) {
 
             var newMyTileObject = new myTileObject(col, row, locationX, locationY, sizeX, sizeY, destX, destY, dx, dy, textMessage);
@@ -396,10 +377,6 @@
 
             puzzleData = pd;
 
-
-
-            //puzzleData = scramble(puzzleData);
-
             body_resize();
 
             clearObjects();
@@ -409,15 +386,9 @@
             for (var r = 0; r < rows; r++) {
                 for (var c = 0; c < cols; c++) {
 
-                    // col,row,
-                    // locationX,locationY,
-                    // sizeX,sizeY,
-                    // destX,destY,
-                    // dx,dy);
-
                     createAndAddMyTileObject(
                         c, r,
-                        Math.random() * 600, Math.random() * 600,//c*225,r*225,
+                        Math.random() * 600, Math.random() * 600,
                         sizex, sizey,
                         c * sizex, r * sizey,
                         0, 0,
@@ -455,10 +426,6 @@
             mainLoop();
         })();
 
-
-        //----------------------------------------------------------------------------------------
-
-
         function distanceBetweenx1y1x2y2(x1, y1, x2, y2) {
             return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
         }
@@ -466,29 +433,18 @@
 
         function canv_mousemove(evt) {
 
-
-
             canvas = document.getElementById('myCanvas');
-
-            // var rect = canvas.getBoundingClientRect();
-
-            // curX = evt.clientX - canvas.offsetLeft - rect.left;
-
-            // curY = evt.clientY - canvas.offsetTop - rect.top;
 
             var mousePos = getMousePos(canvas, evt);
             var curX = mousePos.x;
             var curY = mousePos.y;
 
-            //document.getElementById('info').innerHTML = curX + "," + curY + " " + globalString;
-
-            // if (mouseButton === 1) positionAll(curX, curY);
 
             if (mouseButton === 1) {
                 for (var i = 0; i < myTileObjects.length; i++) {
                     let obj = myTileObjects[i];
                     let dd = distanceBetweenx1y1x2y2(curX - obj.sizeX / 2, curY - obj.sizeY / 2, myTileObjects[i].locationX, myTileObjects[i].locationY);
-                    //console.log(dd);
+             
                     if (dd < touchsize) {
                         if (obj.borderColor === 'none') {
                             globalString += obj.textMessage;
@@ -501,17 +457,13 @@
         }
 
         function canv_mousedown(evt) {
+        	
             // initApplication(21, 21, "NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY ABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZABCDEFGHIJKLMNOPQRSTUVWZYZNOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY NOW IS THE TIME FOR ALL GOOD MEN TO LEARN HOW TO TYPE THE PROPER WAY ");
 
             globalString = "";
             mouseButton = 1;
 
 
-            // var rect = canvas.getBoundingClientRect();
-
-            // curX = evt.clientX - canvas.offsetLeft - rect.left;
-
-            // curY = evt.clientY - canvas.offsetTop - rect.top;
 
             canvas = document.getElementById('myCanvas');
             var mousePos = getMousePos(canvas, evt);
@@ -522,8 +474,7 @@
                 for (var i = 0; i < myTileObjects.length; i++) {
                     let obj = myTileObjects[i];
                     let dd = distanceBetweenx1y1x2y2(curX - obj.sizeX / 2, curY - obj.sizeY / 2, myTileObjects[i].locationX, myTileObjects[i].locationY);
-                    //console.log(dd);
-                    //myTileObjects[i].borderColor = 'none';
+     
                     if (dd < touchsize) {
                         if (obj.borderColor === 'none') {
                             globalString += obj.textMessage;
@@ -539,8 +490,6 @@
 
         function canv_mouseup(evt) {
 
-            //alert(globalString);
-
             var ul = document.getElementById('info');
             var li = document.createElement('li');
             li.textContent = globalString;
@@ -550,11 +499,8 @@
 
             mouseButton = 2;
 
-
             // var rect = canvas.getBoundingClientRect();
-
             // curX = evt.clientX - canvas.offsetLeft - rect.left;
-
             // curY = evt.clientY - canvas.offsetTop - rect.top;
 
             canvas = document.getElementById('myCanvas');
@@ -573,7 +519,6 @@
         }
 
     </script>
-
 
 </body>
 
