@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 
 <html lang="en">
@@ -35,6 +35,21 @@
 
 					<c:set var="url" value="${pageContext.request.contextPath}" />
 
+					<c:choose>
+						<c:when test="${fn:startsWith(image, 'http')}">
+							<c:set var="image" value="${image}" />
+							<c:set var="wordsearch.image" value="${image}" />
+						</c:when>
+						<c:when test="${fn:startsWith(image, 'HTTP')}">
+							<c:set var="wordsearch.image" value="${image}" />
+							<c:set var="image" value="${image}" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="image" value="${myUrl}/uploads/${image}" />
+							<c:set var="wordsearch.image" value="${myUrl}/uploads/${image}" />
+						</c:otherwise>
+					</c:choose>
+
 					<div class="bordered">
 
 						<table>
@@ -50,17 +65,17 @@
 							</tr>
 
 							<tbody>
-							
-							<tr class="bg-success"><td colspan="3"><br></td></tr>
+
+								<tr class="bg-success">
+									<td colspan="3"><br></td>
+								</tr>
 
 								<tr>
-									<td><h3>${wordsearch.id}</h3><br><a
+									<td><h3>${wordsearch.id}</h3> <br> <a
 										href="getWordsearch.do?id=${wordsearch.id}"><img
-											src="${myUrl}/uploads/${image}" class="img-responsive"
-											alt="${myUrl}/uploads/${image}" style="width: 200px;"
-											onerror="this.style.display='none';">
-
-									</a> <br>
+											src="${image}" class="img-responsive"
+											alt="${image}" style="width: 200px;"
+											onerror="this.style.display='none';"> </a> <br>
 
 										<p>
 											<span>Title:</span>${wordsearch.title}</p> <br>
@@ -86,11 +101,7 @@
 											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
 												type="submit" class="btn btn-danger"
 												value="Delete Wordsearch" />
-										</form>
-										
-										<br>
-
-									</td>
+										</form> <br></td>
 
 									<td>
 

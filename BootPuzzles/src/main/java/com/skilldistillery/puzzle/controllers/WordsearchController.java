@@ -403,13 +403,17 @@ public class WordsearchController {
 		pr.sentence = sentence;
 		pr.cols = cols;
 		pr.rows = rows;
+
 		myPuzzle.fillPuzzleBlocks('■', ".");
 		pr.solution = "" + myPuzzle.puzzleToString();
+
 		myPuzzle.fillPuzzleBlocks('.', "abcdefghijklmnopqrstuvwxyz");
 		pr.puzzle = "" + myPuzzle.puzzleToString();
+
 		if (countHidden < words.length) {
 			pr.error = "Not all words were hidden.";
 		}
+
 		return pr;
 	}
 

@@ -25,6 +25,7 @@
     - Remember to update Tests according to seeded database.
     - How to use multipart upload for images.
     - How to use file system and webapp directory for public files.
+    - Planning with a wiring diagram and needed models will be helpful.
 
 #### Structure
 
