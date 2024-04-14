@@ -39,33 +39,59 @@
 
 						<table>
 
-							<tr>
-								<th>Id</th>
-								<th>Title</th>
-								<th>Sentence</th>
-								<th>Columns</th>
-								<th>Rows</th>
+							<tr class="bg-success">
+								<th>Details</th>
+
 								<th>Puzzle</th>
 								<th>Solution</th>
-								<th>Edit</th>
-								<th>Delete</th>
+
+								<!-- <th>Edit/Delete</th> -->
+
 							</tr>
 
 							<tbody>
+							
+							<tr class="bg-success"><td colspan="3"><br></td></tr>
 
 								<tr>
-									<td>${wordsearch.id}<br> <a
-										href="getWordsearch.do?id=${wordsearch.id}"> <img
+									<td><h3>${wordsearch.id}</h3><br><a
+										href="getWordsearch.do?id=${wordsearch.id}"><img
 											src="${myUrl}/uploads/${image}" class="img-responsive"
 											alt="${myUrl}/uploads/${image}" style="width: 200px;"
 											onerror="this.style.display='none';">
 
-									</a>
+									</a> <br>
+
+										<p>
+											<span>Title:</span>${wordsearch.title}</p> <br>
+
+										<p>
+											<span>Sentence:</span>${wordsearch.sentence}</p> <br>
+
+										<p>
+											<span>Columns,Rows:</span>${wordsearch.cols},
+											${wordsearch.rows}
+										</p>
+
+										<hr>
+
+										<form method="GET" action="edit.do">
+											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+												type="submit" class="btn btn-warning"
+												value="Update Wordsearch" />
+										</form> <br>
+
+										<form method="POST" action="delete.do"
+											onsubmit="return confirm('Are you sure?');">
+											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+												type="submit" class="btn btn-danger"
+												value="Delete Wordsearch" />
+										</form>
+										
+										<br>
+
 									</td>
-									<td>${wordsearch.title}</td>
-									<td>${wordsearch.sentence}</td>
-									<td>${wordsearch.cols}</td>
-									<td>${wordsearch.rows}</td>
+
 									<td>
 
 										<div class="col">
@@ -134,27 +160,25 @@
 
 									</td>
 
-									<td>
+									<%-- 									<td>
 
 										<form method="GET" action="edit.do">
 											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
 												type="submit" class="btn btn-warning"
 												value="Edit Wordsearch" />
 										</form>
-
-									</td>
-
-
-									<td>
-
-										<form method="POST" action="delete.do"
+										
+										<br>
+										
+												<form method="POST" action="delete.do"
 											onsubmit="return confirm('Are you sure?');">
 											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
 												type="submit" class="btn btn-danger"
 												value="Delete Wordsearch" />
 										</form>
 
-									</td>
+									</td> --%>
+
 								</tr>
 							</tbody>
 
@@ -183,11 +207,11 @@
 		crossorigin="anonymous"></script>
 
 	<jsp:include page="../_tail.jsp" />
-	
+
 	<br>
 	<br>
 	<br>
-	
+
 
 </body>
 

@@ -26,7 +26,7 @@
 				<div class="row">
 					<div class="col">
 						<input type="submit" class="w-100 btn btn-primary"
-							value="Add new Wordsearch" />
+							value="Create new Wordsearch" />
 					</div>
 				</div>
 

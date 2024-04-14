@@ -30,7 +30,7 @@
 						<label class="" for="cols">Columns:</label>
 					</div>
 					<div class="col">
-						<input required min="4" max="30" type="number" name="cols"
+						<input required min="4" max="20" type="number" name="cols"
 							required value="${wordsearch.cols}"  />
 					</div>
 				</div>
@@ -40,7 +40,7 @@
 						<label class="" for="rows">Rows:</label>
 					</div>
 					<div class="col">
-						<input required min="4" max="30" type="number" name="rows"
+						<input required min="4" max="20" type="number" name="rows"
 							required 	value="${wordsearch.rows}" />
 					</div>
 				</div>

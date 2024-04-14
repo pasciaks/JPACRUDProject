@@ -26,18 +26,19 @@
 table {
 	border-collapse: collapse;
 	width: 100%;
-	border: 2px solid red;
+	border: 1px solid lightgrey;
 }
 
 tr {
 	height: 24px;
+
 }
 
 th, td {
 	width: 20px;
 	border: 1px solid #ddd;
 	text-align: center;
-	border: 1px solid #ddd;
+	border: 1px solid grey;
 }
 
 .row {

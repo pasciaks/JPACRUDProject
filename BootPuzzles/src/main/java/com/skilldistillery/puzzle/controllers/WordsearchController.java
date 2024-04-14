@@ -30,6 +30,8 @@ import jakarta.servlet.ServletContext;
 @Controller
 public class WordsearchController {
 
+	private static int puzzleCounter = 0;
+
 	private WordsearchDAO dao;
 
 	@Value("${my.url}")
@@ -56,6 +58,12 @@ public class WordsearchController {
 	@GetMapping("add.do")
 	public String add() {
 		return "wordsearch/add";
+	}
+
+	@GetMapping("increaseAlgorithm.do")
+	public String increaseAlgorithm(RedirectAttributes redir) {
+		puzzleCounter++;
+		return "redirect:/";
 	}
 
 	@PostMapping("delete.do")
@@ -114,8 +122,8 @@ public class WordsearchController {
 	public String index(Model model) {
 
 		Random random = new Random();
-		int rows = random.nextInt(7) + 7;
-		int cols = random.nextInt(7) + 7;
+		int rows = random.nextInt(7) + 11;
+		int cols = random.nextInt(5) + 7;
 		String title = "Sheldon's Wordsearch Puzzle";
 		String sentence = "SHELDON PASCIAK SKILL DISTILLERY JAVA SPRING BOOT";
 		PuzzleResult pr = createPuzzleData(title, sentence, cols, rows);
@@ -127,6 +135,8 @@ public class WordsearchController {
 		model.addAttribute("solution", pr.solution);
 		model.addAttribute("puzzle", pr.puzzle);
 		model.addAttribute("error", pr.error);
+
+		model.addAttribute("puzzleCounter", puzzleCounter);
 
 		return "home";
 	}
@@ -327,6 +337,8 @@ public class WordsearchController {
 
 	private PuzzleResult createPuzzleData(String title, String sentence, int cols, int rows) {
 
+		Random random = new Random();
+
 		Puzzle myPuzzle = new Puzzle(rows, cols);
 		myPuzzle.fillPuzzle(myPuzzle.getSquare());
 		String[] words = sentence.toUpperCase().split(" ");
@@ -339,20 +351,54 @@ public class WordsearchController {
 			int sCol = (int) Math.floor(puzzleCols / 2);
 
 			boolean wasHidden = false;
-			int maxTries = 999;
-			int currentTries = 0;
-			do {
-				currentTries++;
-				sRow = (int) Math.floor(puzzleRows * Math.random());
-				sCol = (int) Math.floor(puzzleCols * Math.random());
-				wasHidden = myPuzzle.testGetAndShowWordPathsByLength(theLength, theWord, sRow, sCol);
-			} while (wasHidden == false && currentTries < maxTries);
+
+			int randomAlgorithm = random.nextInt(3);
+
+			if (puzzleCounter > 3 || puzzleCounter < 0) {
+				puzzleCounter = 0;
+			}
+
+			if (puzzleCounter == 3) {
+				randomAlgorithm = random.nextInt(3);
+			} else {
+				randomAlgorithm = puzzleCounter;
+			}
+
+			if (randomAlgorithm == 0) {
+
+				// paths algorithm
+
+				int maxTries = 9999;
+				int currentTries = 0;
+				do {
+					currentTries++;
+					sRow = (int) Math.floor(puzzleRows * Math.random());
+					sCol = (int) Math.floor(puzzleCols * Math.random());
+					wasHidden = myPuzzle.testGetAndShowWordPathsByLength(theLength, theWord, sRow, sCol);
+				} while (wasHidden == false && currentTries < maxTries);
+
+			} else if (randomAlgorithm == 1) {
+
+				// diagonal lines algorithm
+
+				wasHidden = myPuzzle.tryToPlaceWordDiagonal(myPuzzle, theWord, 9999);
+
+			} else {
+
+				// straight rectangular lines algorithm
+
+				wasHidden = myPuzzle.tryToPlaceWordRectangular(myPuzzle, theWord, 9999);
+
+			}
 
 			if (wasHidden) {
 				countHidden++;
 			}
+
 		}
+
 		PuzzleResult pr = new PuzzleResult();
+
 		pr.title = title;
 		pr.sentence = sentence;
 		pr.cols = cols;

@@ -31,113 +31,156 @@
 			<c:set var="image" value="${wordsearch.image}" />
 
 			<div class="container text-center p-2 m-2">
-				${wordsearch.image}<br> <img style="max-height: 100px"
+				${wordsearch.image}<br>
+				
+<%-- 				 <img style="max-height: 100px"
 					src="${myUrl}/uploads/${image}" class="img-fluid"
 					alt="${myUrl}/uploads/${image}"
-					onerror="this.style.display='none';">
+					onerror="this.style.display='none';"> --%>
 			</div>
 
 			<div class="bordered">
 
 				<table>
 
+				<tr>
+					<th>Details</th>
+
+					<th>Puzzle</th>
+					<th>Solution</th>
+				<!-- 	<th>Edit/Delete</th> -->
+				</tr>
+
+				<tbody>
+
 					<tr>
-						<th>Id</th>
-						<th>Title</th>
-						<th>Sentence</th>
-						<th>Columns</th>
-						<th>Rows</th>
-						<th>Puzzle</th>
-						<th>Solution</th>
-						<th>Image</th>
+						<td><h3>${wordsearch.id}</h3><br><a
+							href="getWordsearch.do?id=${wordsearch.id}"><img
+								src="${myUrl}/uploads/${image}" class="img-responsive"
+								alt="${myUrl}/uploads/${image}" style="width: 200px;"
+								onerror="this.style.display='none';">
+
+						</a> <br>
+
+							<p>
+								<span>Title:</span>${wordsearch.title}</p> <br>
+
+							<p>
+								<span>Sentence:</span>${wordsearch.sentence}</p> <br>
+
+							<p>
+								<span>Columns,Rows:</span>${wordsearch.cols}, ${wordsearch.rows}
+							</p>
+							
+							
+										<hr>
+
+										<form method="GET" action="edit.do">
+											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+												type="submit" class="btn btn-warning"
+												value="Update Wordsearch" />
+										</form> <br>
+
+										<form method="POST" action="delete.do"
+											onsubmit="return confirm('Are you sure?');">
+											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+												type="submit" class="btn btn-danger"
+												value="Delete Wordsearch" />
+										</form>
+										
+										<br>
+
+						</td>
+
+						<td>
+
+							<div class="col">
+								<c:if test="${! empty rows}">
+									<c:if test="${! empty cols}">
+										<c:if test="${! empty puzzle}">
+
+											<table border="1">
+												<c:forEach var="row" begin="0" end="${rows-1}">
+													<tr>
+														<c:forEach var="col" begin="0" end="${cols-1}">
+															<c:set var="cellIndex" value="${row * cols + col}" />
+															<c:set var="cellValue"
+																value="${cellIndex >= puzzle.length() ? '' : puzzle.charAt(cellIndex)}" />
+															<td>${cellValue}</td>
+														</c:forEach>
+													</tr>
+												</c:forEach>
+											</table>
+
+											<br>
+
+											<a target="_blank"
+												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
+
+											<br>
+
+										</c:if>
+									</c:if>
+								</c:if>
+							</div>
+
+						</td>
+
+						<td>
+
+							<div class="col">
+								<c:if test="${! empty rows}">
+									<c:if test="${! empty cols}">
+										<c:if test="${! empty solution}">
+
+											<table border="1">
+												<c:forEach var="row" begin="0" end="${rows-1}">
+													<tr>
+														<c:forEach var="col" begin="0" end="${cols-1}">
+															<c:set var="cellIndex" value="${row * cols + col}" />
+															<c:set var="cellValue"
+																value="${cellIndex >= solution.length() ? '' : solution.charAt(cellIndex)}" />
+															<td>${cellValue}</td>
+														</c:forEach>
+													</tr>
+												</c:forEach>
+											</table>
+
+											<br>
+
+											<a target="_blank"
+												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
+
+											<br>
+
+										</c:if>
+									</c:if>
+								</c:if>
+							</div>
+
+						</td>
+
+<%-- 						<td>
+
+							<form method="GET" action="edit.do">
+								<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+									type="submit" class="btn btn-warning" value="Edit Wordsearch" />
+							</form> <br>
+
+							<form method="POST" action="delete.do"
+								onsubmit="return confirm('Are you sure?');">
+								<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+									type="submit" class="btn btn-danger" value="Delete Wordsearch" />
+							</form>
+
+						</td> --%>
 
 					</tr>
+				</tbody>
 
-					<tbody>
-						<tr>
-							<td>${wordsearch.id}</td>
-							<td>${wordsearch.title}</td>
-							<td>${wordsearch.sentence}</td>
-							<td>${wordsearch.cols}</td>
-							<td>${wordsearch.rows}</td>
-							<td>
+			</table>
 
-								<div class="col">
-									<c:if test="${! empty rows}">
-										<c:if test="${! empty cols}">
-											<c:if test="${! empty puzzle}">
-
-												<table border="1">
-													<c:forEach var="row" begin="0" end="${rows-1}">
-														<tr>
-															<c:forEach var="col" begin="0" end="${cols-1}">
-																<c:set var="cellIndex" value="${row * cols + col}" />
-																<c:set var="cellValue"
-																	value="${cellIndex >= puzzle.length() ? '' : puzzle.charAt(cellIndex)}" />
-																<td>${cellValue}</td>
-															</c:forEach>
-														</tr>
-													</c:forEach>
-												</table>
-
-												<br>
-
-												<a target="_blank"
-													href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
-
-												<br>
-
-											</c:if>
-										</c:if>
-									</c:if>
-								</div>
-
-							</td>
-
-							<td>
-
-								<div class="col">
-									<c:if test="${! empty rows}">
-										<c:if test="${! empty cols}">
-											<c:if test="${! empty solution}">
-
-												<table border="1">
-													<c:forEach var="row" begin="0" end="${rows-1}">
-														<tr>
-															<c:forEach var="col" begin="0" end="${cols-1}">
-																<c:set var="cellIndex" value="${row * cols + col}" />
-																<c:set var="cellValue"
-																	value="${cellIndex >= solution.length() ? '' : solution.charAt(cellIndex)}" />
-																<td>${cellValue}</td>
-															</c:forEach>
-														</tr>
-													</c:forEach>
-												</table>
-
-												<br>
-
-												<a target="_blank"
-													href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
-
-												<br>
-
-											</c:if>
-										</c:if>
-									</c:if>
-								</div>
-
-							</td>
-
-							<td>${wordsearch.image}</td>
-
-
-						</tr>
-					</tbody>
-
-				</table>
-
-
-				<div class="container m-2">
+<%-- 				<div class="container m-2">
 					<div class="row">
 						<div class="col">
 							<form method="GET" action="edit.do">
@@ -153,7 +196,7 @@
 							</form>
 						</div>
 					</div>
-				</div>
+				</div> --%>
 
 
 			</div>

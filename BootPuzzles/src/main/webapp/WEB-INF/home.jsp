@@ -21,6 +21,20 @@
 					<h3>${title}</h3>
 					<p>${sentence}</p>
 				</div>
+				<div class="col">
+					<div class="container p-1 m-1">
+
+						<h1>
+							<label for="id">Search by Id:</label>
+						</h1>
+
+						<form action="getWordsearch.do" method="GET">
+							<input type="number" name="id" required min="1" /> <input
+								type="submit" class="btn btn-success" value="Search By Id" />
+						</form>
+
+					</div>
+				</div>
 			</div>
 
 			<div class="row">
@@ -36,7 +50,7 @@
 												<c:set var="cellIndex" value="${row * cols + col}" />
 												<c:set var="cellValue"
 													value="${cellIndex >= puzzle.length() ? '' : puzzle.charAt(cellIndex)}" />
-												<td>${cellValue}</td>
+												<td><strong>${cellValue}</strong></td>
 											</c:forEach>
 										</tr>
 									</c:forEach>
@@ -65,7 +79,7 @@
 												<c:set var="cellIndex" value="${row * cols + col}" />
 												<c:set var="cellValue"
 													value="${cellIndex >= solution.length() ? '' : solution.charAt(cellIndex)}" />
-												<td>${cellValue}</td>
+												<td><strong>${cellValue}</strong></td>
 											</c:forEach>
 										</tr>
 									</c:forEach>
@@ -85,7 +99,7 @@
 			</div>
 		</div>
 
-		<div class="container p-1 m-1">
+		<!-- 		<div class="container p-1 m-1">
 
 			<h1>
 				<label for="id">Search by Id:</label>
@@ -96,7 +110,7 @@
 					type="submit" class="btn btn-success" value="Search By Id" />
 			</form>
 
-		</div>
+		</div> -->
 
 	</main>
 
