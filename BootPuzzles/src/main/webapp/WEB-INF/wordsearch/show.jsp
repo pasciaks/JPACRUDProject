@@ -32,8 +32,10 @@
 			</div>
 
 			<div class="container text-center p-2 m-2">
-				<img style="max-height: 100px" src="${myUrl}/uploads/${image}"
-					class="img-fluid" alt="${myUrl}/uploads/${image}"
+				<a href="${myUrl}/uploads/${image}" target="_blank">Download
+					Image</a> <img style="max-height: 100px"
+					src="${myUrl}/uploads/${image}" class="img-fluid"
+					alt="${myUrl}/uploads/${image}"
 					onerror="this.style.display='none';">
 			</div>
 
