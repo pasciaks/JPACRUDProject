@@ -22,6 +22,9 @@
     - Make it work, then make it look good.
     - Focus on the requirements, then stretch the goals!
     - Be careful not to mix up cols/rows on edit!
+    - Remember to update Tests according to seeded database.
+    - How to use multipart upload for images.
+    - How to use file system and webapp directory for public files.
 
 #### Structure
 
@@ -295,6 +298,10 @@ JPACrudProject
 <hr>
 
 ![Demo Screenshots](7.png)
+
+<hr>
+
+![Gradle Test Suite Passing](8.png)
 
 <hr>
 

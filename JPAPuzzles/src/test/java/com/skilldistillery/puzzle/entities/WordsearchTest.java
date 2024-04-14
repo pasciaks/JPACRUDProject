@@ -41,7 +41,7 @@ class WordsearchTest {
 
 	@Test
 	void test_Wordsearch_entity_mapping() {
-		Wordsearch wordsearch = em.find(Wordsearch.class, 1);
+		Wordsearch wordsearch = em.find(Wordsearch.class, 2);
 		System.out.println(wordsearch);
 		assertNotNull(wordsearch);
 	}
@@ -51,23 +51,25 @@ class WordsearchTest {
 
 		Wordsearch wordsearch = em.find(Wordsearch.class, 1);
 
-		assertEquals("First Puzzle", wordsearch.getTitle());
+		System.out.println(wordsearch);
 
-		assertEquals(12, wordsearch.getCols());
+		assertEquals("Sheldon's Puzzle", wordsearch.getTitle());
 
-		assertEquals(12, wordsearch.getRows());
+		assertEquals(10, wordsearch.getCols());
 
-		assertEquals("NOW IS THE TIME FOR ALL GOOD MEN", wordsearch.getSentence());
+		assertEquals(14, wordsearch.getRows());
+
+		assertEquals("SHELDON PASCIAK", wordsearch.getSentence());
 
 		assertEquals(
-				"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"NUBMFPMQIMRDQHTQPJPEXXEYAPCPRJBVDJSATYRWXCLICFHJZPKAVEIAKEEPYCMFFUTFSXIZRNCXNOIZOETPEHTDSPHDNCVAFLDGDJHDKLZEGWLVWLTBZHCRVPHVCAXSBBHVXYCRGGSB",
 				wordsearch.getPuzzle());
 
 		assertEquals(
-				"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				".........................P........SA........C.........IAK...................NO.........D.........L.........E.........H.........S............",
 				wordsearch.getSolution());
 
-		assertEquals("https://placehold.co/400", wordsearch.getImage());
+		assertEquals("f25b9e76-37ad-432e-8bed-cb1da5d3a8b7.png", wordsearch.getImage());
 
 	}
 
