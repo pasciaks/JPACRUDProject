@@ -188,7 +188,7 @@ JPACrudProject
 
 <hr>
 
-### Table view is used to 'R'ead list of puzzles.
+### 'R'eading will generate a Table view show the list of puzzles.
 
 ![Demo Screenshots](5.png)
 
@@ -215,6 +215,18 @@ JPACrudProject
 ### Implemented for use with multiple hiding algorithms.
 
 ![Multiple Hiding Algorithms](9.png)
+
+<hr>
+
+### 'C'reating will allow you to add a record even with image upload.
+
+![Create](10.png)
+
+<hr>
+
+### 'D'eleting will remove the record and show the deleted message.
+
+![Delete](11.png)
 
 <hr>
 
