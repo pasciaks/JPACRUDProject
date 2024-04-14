@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -26,43 +30,62 @@
 table {
 	border-collapse: collapse;
 	width: 100%;
-	border: 1px solid lightgrey;
+	margin: 2px;
+	background-color: #F5F5F5;
+	border-radius: 0.5rem;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 tr {
 	height: 24px;
-
 }
 
 th, td {
-	width: 20px;
-	border: 1px solid #ddd;
+	width: 10px;
 	text-align: center;
-	border: 1px solid grey;
+
 }
 
 .row {
-	margin: 10px;
-	padding: 10px;
-
+	margin: 2px;
+	padding: 2px;
 }
 
 input[type="number"] {
-	width: 140px;
+	width: 100%;
 }
 
 input[type="text"] {
-	width: 400px;
+	width: 100%;
 }
 
-.a,.b,.c,.d,.e,.f,.g,.h,.i,.j,.k,.l,.m,.n,.o,.p,.q,.r,.s,.t,.u,.v,.w,.x,.y,.z {
+input[type="file"] {
+	width: 100%;
+}
+
+.a, .b, .c, .d, .e, .f, .g, .h, .i, .j, .k, .l, .m, .n, .o, .p, .q, .r,
+	.s, .t, .u, .v, .w, .x, .y, .z {
 	color: black;
 }
 
-.A,.B,.C,.D,.E,.F,.G,.H,.I,.J,.K,.L,.M,.N,.O,.P,.Q,.R,.S,.T,.U,.V,.W,.X,.Y,.Z {
+.A, .B, .C, .D, .E, .F, .G, .H, .I, .J, .K, .L, .M, .N, .O, .P, .Q, .R,
+	.S, .T, .U, .V, .W, .X, .Y, .Z {
 	color: tomato;
 }
 
+img {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.18);
+	border-radius: 0.5rem;
+}
+
+img {
+	transition: transform 0.25s;
+}
+
+img:hover {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 3px 9px rgba(0, 0, 0, 0.98);
+}
 </style>
 
 </head>

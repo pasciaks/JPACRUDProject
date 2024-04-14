@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="\">Puzzle CRUD</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -20,6 +20,8 @@
 		</div>
 	</div>
 </nav>
+
+<div class="m-5 bg-white text-white text-center">  </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

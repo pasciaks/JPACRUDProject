@@ -38,17 +38,14 @@
 
 			<hr>
 
-			<div class="row">
+			<div class="row d-none">
 				<div class="col">
-
 					<form method="POST" action="delete.do"
 						onsubmit="return confirm('Are you sure?');">
 						<input type="hidden" name="id" value="${wordsearch.id}" /> <input
-							type="submit" class="btn btn-danger" value="Delete Wordsearch" />
+							type="submit" class="w-100 btn btn-danger" value="Delete Wordsearch" />
 					</form>
-
 				</div>
-
 			</div>
 
 		</div>

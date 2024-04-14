@@ -9,8 +9,11 @@
 <jsp:include page="_head.jsp" />
 
 <style>
+input[type="number"] {
+	width: 150px;
+}
 strong {
-	font-size: 18px;
+    font-size: 20px;
 }
 </style>
 
@@ -35,7 +38,8 @@ strong {
 						</h1>
 
 						<form action="getWordsearch.do" method="GET">
-							<input type="number" name="id" required min="1" /> <input
+							<input type="number" name="id" required min="1" /> 
+							<input
 								type="submit" class="btn btn-success" value="Search By Id" />
 						</form>
 

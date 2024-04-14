@@ -24,87 +24,84 @@
 
 			<c:set var="url" value="${pageContext.request.contextPath}" />
 
-			<div class="row">
+			<div class="row text-success">
 				<div class="col">
 					<h3>${wordsearch.title}</h3>
 					<p>${wordsearch.sentence}</p>
 				</div>
 			</div>
 
-			<div class="container text-center p-2 m-2">
+			<c:choose>
+				<c:when test="${fn:startsWith(image, 'http')}">
+					<c:set var="image" value="${image}" />
+					<c:set var="wordsearch.image" value="${image}" />
+				</c:when>
+				<c:when test="${fn:startsWith(image, 'HTTP')}">
+					<c:set var="wordsearch.image" value="${image}" />
+					<c:set var="image" value="${image}" />
+				</c:when>
+				<c:otherwise>
+					<c:set var="image" value="${myUrl}/uploads/${image}" />
+					<c:set var="wordsearch.image" value="${myUrl}/uploads/${image}" />
+				</c:otherwise>
+			</c:choose>
 
-				<c:choose>
-					<c:when test="${fn:startsWith(image, 'http')}">
-						<c:set var="image" value="${image}" />
-						<c:set var="wordsearch.image" value="${image}" />
-					</c:when>
-					<c:when test="${fn:startsWith(image, 'HTTP')}">
-						<c:set var="wordsearch.image" value="${image}" />
-						<c:set var="image" value="${image}" />
-					</c:when>
-					<c:otherwise>
-						<c:set var="image" value="${myUrl}/uploads/${image}" />
-						<c:set var="wordsearch.image" value="${myUrl}/uploads/${image}" />
-					</c:otherwise>
-				</c:choose>
+			<a href="${image}" target="_blank">Download Image</a>
 
-				<a href="${image}" target="_blank">Download Image</a>
-
-			</div>
 
 			<table>
-
-				<tr>
-
-					<th>Details</th>
-
-					<th>Puzzle</th>
-
-					<th>Solution</th>
-
-				</tr>
 
 				<tbody>
 
 					<tr>
-						<td><h3>${wordsearch.id}</h3> <br> <%-- 						  <a
+						<td colspan="2"><a
 							href="getWordsearch.do?id=${wordsearch.id}"><img
-								src="${myUrl}/uploads/${image}" class="img-responsive"
-								alt="${myUrl}/uploads/${image}" style="width: 200px;"
-								onerror="this.style.display='none';"> </a> 
-								
-								<br>  --%> <a href="getWordsearch.do?id=${wordsearch.id}"><img
 								src="${image}" class="img-responsive" alt="${image}"
 								style="width: 200px;" onerror="this.style.display='none';">
 
-						</a> <br>
+						</a>
+
+									<div class="row">
+										<div class="col">
+											<p>
+												<span class="text-primary">(${wordsearch.id})</span> <span><strong>Title: </strong></span>${wordsearch.title}</p>
+										</div>
+										<div class="col">
+											<p>
+												<span><strong>Sentence: </strong></span>${wordsearch.sentence}</p>
+										</div>
+
+										<div class="col">
+											<p>
+												<span><strong>Columns, Rows: </strong></span>${wordsearch.cols},
+												${wordsearch.rows}
+											</p>
+										</div>
+									</div>
 
 
+							<div class="row">
+								<div class="col">
+									<form method="GET" action="edit.do">
+										<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+											type="submit" class="btn btn-warning"
+											value="Update Wordsearch" />
+									</form>
+								</div>
+								<div class="col">
+									<form method="POST" action="delete.do"
+										onsubmit="return confirm('Are you sure?');">
+										<input type="hidden" name="id" value="${wordsearch.id}" /> <input
+											type="submit" class="btn btn-danger"
+											value="Delete Wordsearch" />
+									</form>
+								</div>
 
+							</div></td>
 
-							<p>
-								<span>Title:</span>${wordsearch.title}</p> <br>
+					</tr>
 
-							<p>
-								<span>Sentence:</span>${wordsearch.sentence}</p> <br>
-
-							<p>
-								<span>Columns,Rows:</span>${wordsearch.cols}, ${wordsearch.rows}
-							</p>
-
-
-							<hr>
-
-							<form method="GET" action="edit.do">
-								<input type="hidden" name="id" value="${wordsearch.id}" /> <input
-									type="submit" class="btn btn-warning" value="Update Wordsearch" />
-							</form> <br>
-
-							<form method="POST" action="delete.do"
-								onsubmit="return confirm('Are you sure?');">
-								<input type="hidden" name="id" value="${wordsearch.id}" /> <input
-									type="submit" class="btn btn-danger" value="Delete Wordsearch" />
-							</form> <br></td>
+					<tr>
 
 						<td>
 
@@ -122,6 +119,7 @@
 																value="${cellIndex >= puzzle.length() ? '' : puzzle.charAt(cellIndex)}" />
 															<td>${cellValue}</td>
 														</c:forEach>
+
 													</tr>
 												</c:forEach>
 											</table>
@@ -181,8 +179,6 @@
 
 			</table>
 
-
-
 		</c:if>
 
 	</main>
@@ -200,6 +196,44 @@
 		crossorigin="anonymous"></script>
 
 	<jsp:include page="../_tail.jsp" />
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
 
 </body>
 

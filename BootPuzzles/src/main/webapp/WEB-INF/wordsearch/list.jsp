@@ -14,7 +14,11 @@
 
 	<main class="container text-center">
 
-		<h1>Wordsearches</h1>
+		<c:if test="${ empty wordsearches}">
+			<div class="alert alert-danger">
+				<p>No records found.
+			</div>
+		</c:if>
 
 		<c:if test="${! empty message}">
 			<div class="alert alert-success">${message}</div>
@@ -35,6 +39,13 @@
 
 					<c:set var="url" value="${pageContext.request.contextPath}" />
 
+					<div class="row text-info">
+						<div class="col">
+							<h3>${wordsearch.title}</h3>
+							<p>${wordsearch.sentence}</p>
+						</div>
+					</div>
+
 					<c:choose>
 						<c:when test="${fn:startsWith(image, 'http')}">
 							<c:set var="image" value="${image}" />
@@ -50,152 +61,151 @@
 						</c:otherwise>
 					</c:choose>
 
-					<div class="bordered">
 
-						<table>
 
-							<tr class="bg-success">
-								<th>Details</th>
+					<table>
 
-								<th>Puzzle</th>
-								<th>Solution</th>
+						<tbody>
 
-								<!-- <th>Edit/Delete</th> -->
+
+							<tr>
+								<td colspan="2"><a
+									href="getWordsearch.do?id=${wordsearch.id}">
+									See More Details<br><img
+										src="${image}" class="img-responsive" alt="${image}"
+										style="width: 200px;" onerror="this.style.display='none';">
+								</a>
+
+
+
+									<div class="row">
+										<div class="col">
+											<p>
+												<span class="text-primary">(${wordsearch.id})</span> <span><strong>Title: </strong></span>${wordsearch.title}</p>
+										</div>
+										<div class="col">
+											<p>
+												<span><strong>Sentence: </strong></span>${wordsearch.sentence}</p>
+										</div>
+
+										<div class="col">
+											<p>
+												<span><strong>Columns, Rows: </strong></span>${wordsearch.cols},
+												${wordsearch.rows}
+											</p>
+										</div>
+									</div>
+
+
+
+									<div class="row">
+
+										<div class="col">
+											<form method="GET" action="edit.do">
+												<input type="hidden" name="id" value="${wordsearch.id}" />
+												<input type="submit" class="btn btn-warning"
+													value="Update Wordsearch" />
+											</form>
+										</div>
+										<div class="col">
+
+											<form method="POST" action="delete.do"
+												onsubmit="return confirm('Are you sure?');">
+												<input type="hidden" name="id" value="${wordsearch.id}" />
+												<input type="submit" class="btn btn-danger"
+													value="Delete Wordsearch" />
+											</form>
+
+										</div>
+
+									</div></td>
+
 
 							</tr>
 
-							<tbody>
 
-								<tr class="bg-success">
-									<td colspan="3"><br></td>
-								</tr>
 
-								<tr>
-									<td><h3>${wordsearch.id}</h3> <br> <a
-										href="getWordsearch.do?id=${wordsearch.id}"><img
-											src="${image}" class="img-responsive"
-											alt="${image}" style="width: 200px;"
-											onerror="this.style.display='none';"> </a> <br>
+							<tr>
 
-										<p>
-											<span>Title:</span>${wordsearch.title}</p> <br>
+								<td>
 
-										<p>
-											<span>Sentence:</span>${wordsearch.sentence}</p> <br>
+									<div class="col">
+										<c:if test="${! empty rows}">
+											<c:if test="${! empty cols}">
+												<c:if test="${! empty puzzle}">
 
-										<p>
-											<span>Columns,Rows:</span>${wordsearch.cols},
-											${wordsearch.rows}
-										</p>
+													<table border="1">
+														<c:forEach var="row" begin="0" end="${rows-1}">
+															<tr>
+																<c:forEach var="col" begin="0" end="${cols-1}">
+																	<c:set var="cellIndex" value="${row * cols + col}" />
+																	<c:set var="cellValue"
+																		value="${cellIndex >= puzzle.length() ? '' : puzzle.charAt(cellIndex)}" />
+																	<td>${cellValue}</td>
+																</c:forEach>
+															</tr>
+														</c:forEach>
+													</table>
 
-										<hr>
+													<br>
 
-										<form method="GET" action="edit.do">
-											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
-												type="submit" class="btn btn-warning"
-												value="Update Wordsearch" />
-										</form> <br>
+													<a target="_blank"
+														href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
 
-										<form method="POST" action="delete.do"
-											onsubmit="return confirm('Are you sure?');">
-											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
-												type="submit" class="btn btn-danger"
-												value="Delete Wordsearch" />
-										</form> <br></td>
+													<br>
 
-									<td>
-
-										<div class="col">
-											<c:if test="${! empty rows}">
-												<c:if test="${! empty cols}">
-													<c:if test="${! empty puzzle}">
-
-														<table border="1">
-															<c:forEach var="row" begin="0" end="${rows-1}">
-																<tr>
-																	<c:forEach var="col" begin="0" end="${cols-1}">
-																		<c:set var="cellIndex" value="${row * cols + col}" />
-																		<c:set var="cellValue"
-																			value="${cellIndex >= puzzle.length() ? '' : puzzle.charAt(cellIndex)}" />
-																		<td>${cellValue}</td>
-																	</c:forEach>
-																</tr>
-															</c:forEach>
-														</table>
-
-														<br>
-
-														<a target="_blank"
-															href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
-
-														<br>
-
-													</c:if>
 												</c:if>
 											</c:if>
-										</div>
+										</c:if>
+									</div>
 
-									</td>
+								</td>
 
-									<td>
+								<td>
 
-										<div class="col">
-											<c:if test="${! empty rows}">
-												<c:if test="${! empty cols}">
-													<c:if test="${! empty solution}">
+									<div class="col">
+										<c:if test="${! empty rows}">
+											<c:if test="${! empty cols}">
+												<c:if test="${! empty solution}">
 
-														<table border="1">
-															<c:forEach var="row" begin="0" end="${rows-1}">
-																<tr>
-																	<c:forEach var="col" begin="0" end="${cols-1}">
-																		<c:set var="cellIndex" value="${row * cols + col}" />
-																		<c:set var="cellValue"
-																			value="${cellIndex >= solution.length() ? '' : solution.charAt(cellIndex)}" />
-																		<td>${cellValue}</td>
-																	</c:forEach>
-																</tr>
-															</c:forEach>
-														</table>
+													<table border="1">
+														<c:forEach var="row" begin="0" end="${rows-1}">
+															<tr>
+																<c:forEach var="col" begin="0" end="${cols-1}">
+																	<c:set var="cellIndex" value="${row * cols + col}" />
+																	<c:set var="cellValue"
+																		value="${cellIndex >= solution.length() ? '' : solution.charAt(cellIndex)}" />
+																	<td>${cellValue}</td>
+																</c:forEach>
+															</tr>
+														</c:forEach>
+													</table>
 
-														<br>
+													<br>
 
-														<a target="_blank"
-															href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
+													<a target="_blank"
+														href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
 
-														<br>
+													<br>
 
-													</c:if>
 												</c:if>
 											</c:if>
-										</div>
+										</c:if>
+									</div>
 
-									</td>
+								</td>
 
-									<%-- 									<td>
 
-										<form method="GET" action="edit.do">
-											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
-												type="submit" class="btn btn-warning"
-												value="Edit Wordsearch" />
-										</form>
-										
-										<br>
-										
-												<form method="POST" action="delete.do"
-											onsubmit="return confirm('Are you sure?');">
-											<input type="hidden" name="id" value="${wordsearch.id}" /> <input
-												type="submit" class="btn btn-danger"
-												value="Delete Wordsearch" />
-										</form>
 
-									</td> --%>
+							</tr>
 
-								</tr>
-							</tbody>
+						</tbody>
 
-						</table>
+					</table>
 
-					</div>
+					<hr>
+
+
 
 				</c:if>
 
@@ -219,9 +229,44 @@
 
 	<jsp:include page="../_tail.jsp" />
 
+	
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
 
 
 </body>
