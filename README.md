@@ -41,31 +41,6 @@ JPACrudProject
 ├── BootPuzzles
 │   ├── HELP.md
 │   ├── bin
-│   │   ├── main
-│   │   │   ├── application.properties
-│   │   │   ├── com
-│   │   │   │   └── skilldistillery
-│   │   │   │       └── puzzle
-│   │   │   │           ├── BootPuzzlesApplication.class
-│   │   │   │           ├── ServletInitializer.class
-│   │   │   │           ├── controllers
-│   │   │   │           │   └── WordsearchController.class
-│   │   │   │           ├── data
-│   │   │   │           │   ├── WordsearchDAO.class
-│   │   │   │           │   └── WordsearchDAOJpaImpl.class
-│   │   │   │           └── util
-│   │   │   │               ├── Point.class
-│   │   │   │               ├── Puzzle$MyRowColClass.class
-│   │   │   │               ├── Puzzle.class
-│   │   │   │               ├── PuzzleMatrix.class
-│   │   │   │               ├── PuzzlePiece.class
-│   │   │   │               └── PuzzleResult.class
-│   │   │   └── templates
-│   │   └── test
-│   │       └── com
-│   │           └── skilldistillery
-│   │               └── puzzle
-│   │                   └── BootPuzzlesApplicationTests.class
 │   ├── build.gradle
 │   ├── gradle
 │   │   └── wrapper
@@ -150,86 +125,7 @@ JPACrudProject
 │   └── Puzzle.txt
 ├── JPAPuzzles
 │   ├── bin
-│   │   ├── main
-│   │   │   ├── META-INF
-│   │   │   │   └── persistence.xml
-│   │   │   ├── com
-│   │   │   │   └── skilldistillery
-│   │   │   │       └── puzzle
-│   │   │   │           └── entities
-│   │   │   │               └── Wordsearch.class
-│   │   │   └── log4j2.properties
-│   │   └── test
-│   │       ├── com
-│   │       │   └── skilldistillery
-│   │       │       └── puzzle
-│   │       │           └── entities
-│   │       │               └── WordsearchTest.class
-│   │       └── log4j2.properties
 │   ├── build
-│   │   ├── classes
-│   │   │   ├── META-INF
-│   │   │   │   └── persistence.xml
-│   │   │   └── java
-│   │   │       ├── main
-│   │   │       │   └── com
-│   │   │       │       └── skilldistillery
-│   │   │       │           └── puzzle
-│   │   │       │               └── entities
-│   │   │       │                   └── Wordsearch.class
-│   │   │       └── test
-│   │   │           └── com
-│   │   │               └── skilldistillery
-│   │   │                   └── puzzle
-│   │   │                       └── entities
-│   │   │                           └── WordsearchTest.class
-│   │   ├── generated
-│   │   │   └── sources
-│   │   │       ├── annotationProcessor
-│   │   │       │   └── java
-│   │   │       │       ├── main
-│   │   │       │       └── test
-│   │   │       └── headers
-│   │   │           └── java
-│   │   │               ├── main
-│   │   │               └── test
-│   │   ├── reports
-│   │   │   └── tests
-│   │   │       └── test
-│   │   │           ├── classes
-│   │   │           │   └── com.skilldistillery.puzzle.entities.WordsearchTest.html
-│   │   │           ├── css
-│   │   │           │   ├── base-style.css
-│   │   │           │   └── style.css
-│   │   │           ├── index.html
-│   │   │           ├── js
-│   │   │           │   └── report.js
-│   │   │           └── packages
-│   │   │               └── com.skilldistillery.puzzle.entities.html
-│   │   ├── resources
-│   │   │   ├── main
-│   │   │   │   ├── META-INF
-│   │   │   │   │   └── persistence.xml
-│   │   │   │   └── log4j2.properties
-│   │   │   └── test
-│   │   │       └── log4j2.properties
-│   │   ├── test-results
-│   │   │   └── test
-│   │   │       ├── TEST-com.skilldistillery.puzzle.entities.WordsearchTest.xml
-│   │   │       └── binary
-│   │   │           ├── output.bin
-│   │   │           ├── output.bin.idx
-│   │   │           └── results.bin
-│   │   └── tmp
-│   │       ├── compileJava
-│   │       │   └── previous-compilation-data.bin
-│   │       ├── compileTestJava
-│   │       │   ├── compileTransaction
-│   │       │   │   ├── backup-dir
-│   │       │   │   └── stash-dir
-│   │       │   │       └── WordsearchTest.class.uniqueId0
-│   │       │   └── previous-compilation-data.bin
-│   │       └── test
 │   ├── build.gradle
 │   ├── gradle
 │   │   ├── libs.versions.toml
@@ -286,23 +182,39 @@ JPACrudProject
 
 <hr>
 
+### Home page route dynamically creates a puzzle to demo.
+
 ![Demo Screenshots](4.png)
 
 <hr>
+
+### Table view is used to 'R'ead list of puzzles.
 
 ![Demo Screenshots](5.png)
 
 <hr>
 
+### 'U'pdating a puzzle will rehide words and adjust image if needed.
+
 ![Demo Screenshots](6.png)
 
 <hr>
+
+### An HTML/JavaScript/Canvas index.html is included to interact with puzzle data.
 
 ![Demo Screenshots](7.png)
 
 <hr>
 
+### Gradle and JUnit passing tests for Wordsearch entity.
+
 ![Gradle Test Suite Passing](8.png)
+
+<hr>
+
+### Implemented for use with multiple hiding algorithms.
+
+![Multiple Hiding Algorithms](9.png)
 
 <hr>
 
