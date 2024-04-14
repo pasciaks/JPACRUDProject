@@ -10,3 +10,5 @@ default
 *.war 
 *.bak
 .mwb
+uploads/*
+
