@@ -141,7 +141,6 @@ public class WordsearchController {
 		int cols = random.nextInt(5) + 7;
 		String title = "Sheldon's Wordsearch Puzzle";
 		String sentence = "SHELDON PASCIAK SKILL DISTILLERY JAVA SPRING BOOT";
-		sentence = "TEST TEST";
 		PuzzleResult pr = createPuzzleData(title, sentence, cols, rows);
 		model.addAttribute("id", 0);
 		model.addAttribute("title", title);
