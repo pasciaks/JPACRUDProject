@@ -2,7 +2,7 @@
 
 #### Description
 
-- This is a full stack Spring Boot Project that implements the ability to Create, Read, Update and Delete records stored in a MySQL Database.
+- This is a full stack Spring Boot Project that implements the ability to Create, Read, Update and Delete records stored in a single table of a MySQL Database.
 
 #### Technologies Used
 
@@ -170,13 +170,13 @@ JPACrudProject
 
 <hr>
 
-### The database consists of only 1 single table.
+### The database consists of only a single table.
 
 ![Database Schema](2.png)
 
 <hr>
 
-### The power of this app comes from a weeks long development of a word-searching hiding utility and related random/path based algorithms developed by myself since the start of this cohort.
+### The power of this app comes from weeks long development of a word-search hiding utility and related random/path based algorithms that I personally developed since the start of this cohort.
 
 ![The Wordsearch util usage](3.png)
 
@@ -188,13 +188,13 @@ JPACrudProject
 
 <hr>
 
-### 'R'eading will generate a Table view show the list of puzzles.
+### 'R'eading will generate a Table view that shows the list of puzzles.
 
 ![Demo Screenshots](5.png)
 
 <hr>
 
-### 'U'pdating a puzzle will rehide words and adjust image if needed.
+### 'U'pdating a puzzle will rehide words with image upload or hotlinking supported.
 
 ![Demo Screenshots](6.png)
 
@@ -218,13 +218,13 @@ JPACrudProject
 
 <hr>
 
-### 'C'reating will allow you to add a record even with image upload.
+### 'C'reating will allow you to add a record, also with image upload or hotlinking supported.
 
 ![Create](10.png)
 
 <hr>
 
-### 'D'eleting will remove the record and show the deleted message.
+### 'D'eleting will remove the record and show the deleted message and a refreshed list.
 
 ![Delete](11.png)
 
