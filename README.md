@@ -1,5 +1,12 @@
 # JPACRUDProject
 
+- Sheldon Pasciak
+- April 15th, 2024
+- Skill Distillery
+- Full Stack JAVA
+
+![Welcome](0.png)
+
 #### Description
 
 - This is a full stack Spring Boot Project that implements the ability to Create, Read, Update and Delete records stored in a single table of a MySQL Database.
@@ -26,6 +33,80 @@
     - How to use multipart upload for images.
     - How to use file system and webapp directory for public files.
     - Planning with a wiring diagram and needed models will be helpful.
+
+<hr>
+
+### The welcome page dynamically creates and renders a puzzle.
+
+![Screenshot Welcome Page](1.png)
+
+<hr>
+
+### The database consists of only a single table.
+
+![Database Schema](2.png)
+
+<hr>
+
+### The power of this app comes from weeks long development of a word-search hiding utility and related random/path based algorithms that I personally developed since the start of this cohort.
+
+![The Wordsearch util usage](3.png)
+
+<hr>
+
+### Home page route dynamically creates a puzzle to demo.
+
+![Demo Screenshots](1.png)
+
+<hr>
+
+### 'R'eading will generate a Table view that shows the list of puzzles.
+
+![Demo Screenshots](5.png)
+
+<hr>
+
+### 'R'eading also allows searching by Id.
+
+![Demo Screenshots](4.png)
+
+<hr>
+
+### 'U'pdating a puzzle will rehide words with image upload or hotlinking supported.
+
+![Demo Screenshots](6.png)
+
+<hr>
+
+### An HTML/JavaScript/Canvas index.html is included to interact with puzzle data.
+
+![Demo Screenshots](7.png)
+
+<hr>
+
+### Gradle and JUnit passing tests for Wordsearch entity.
+
+![Gradle Test Suite Passing](8.png)
+
+<hr>
+
+### Implemented for use with multiple hiding algorithms.
+
+![Multiple Hiding Algorithms](9.png)
+
+<hr>
+
+### 'C'reating will allow you to add a record, also with image upload or hotlinking supported.
+
+![Create](10.png)
+
+<hr>
+
+### 'D'eleting will remove the record and show the deleted message and a refreshed list.
+
+![Delete](11.png)
+
+<hr>
 
 #### Structure
 
@@ -161,80 +242,6 @@ JPACrudProject
 115 directories, 116 files
 
 ```
-
-<hr>
-
-### The welcome page dynamically creates and renders a puzzle.
-
-![Screenshot Welcome Page](1.png)
-
-<hr>
-
-### The database consists of only a single table.
-
-![Database Schema](2.png)
-
-<hr>
-
-### The power of this app comes from weeks long development of a word-search hiding utility and related random/path based algorithms that I personally developed since the start of this cohort.
-
-![The Wordsearch util usage](3.png)
-
-<hr>
-
-### Home page route dynamically creates a puzzle to demo.
-
-![Demo Screenshots](1.png)
-
-<hr>
-
-### 'R'eading will generate a Table view that shows the list of puzzles.
-
-![Demo Screenshots](5.png)
-
-<hr>
-
-### 'R'eading also allows searching by Id.
-
-![Demo Screenshots](4.png)
-
-<hr>
-
-### 'U'pdating a puzzle will rehide words with image upload or hotlinking supported.
-
-![Demo Screenshots](6.png)
-
-<hr>
-
-### An HTML/JavaScript/Canvas index.html is included to interact with puzzle data.
-
-![Demo Screenshots](7.png)
-
-<hr>
-
-### Gradle and JUnit passing tests for Wordsearch entity.
-
-![Gradle Test Suite Passing](8.png)
-
-<hr>
-
-### Implemented for use with multiple hiding algorithms.
-
-![Multiple Hiding Algorithms](9.png)
-
-<hr>
-
-### 'C'reating will allow you to add a record, also with image upload or hotlinking supported.
-
-![Create](10.png)
-
-<hr>
-
-### 'D'eleting will remove the record and show the deleted message and a refreshed list.
-
-![Delete](11.png)
-
-<hr>
 
 ### Contact me with any questions or reasonable, remote, part-time/full-time employment offers!
 

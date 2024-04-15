@@ -10,6 +10,8 @@
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="\">Home</a></li>
+				<li class="nav-item"><a class="nav-link" target="_blank"
+					href="https://github.com/pasciaks/JPACRUDProject">About</a></li>
 				<li class="nav-item"><a class="nav-link" href="add.do">Create</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="list.do">Read</a></li>
@@ -21,7 +23,7 @@
 	</div>
 </nav>
 
-<div class="m-5 bg-white text-white text-center">  </div>
+<div class="m-5 bg-white text-white text-center"></div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
