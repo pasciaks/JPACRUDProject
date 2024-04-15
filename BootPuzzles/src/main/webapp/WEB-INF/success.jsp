@@ -14,12 +14,232 @@
 	<jsp:include page="_nav.jsp" />
 
 	<main class="container text-center">
-	
-			<c:if test="${ empty wordsearch}">
+
+
+		<c:if test="${! empty scores}">
+			<div class="alert alert-warning" role="alert">Scores!</div>
+
+			<p>Note: I didn't spend the extra time to format these Static,
+				comma separated values. Just wanted to show that they are being
+				passed back from the game.</p>
+			<p>Note: This score functionality was added in 1.5 hours starting
+				at 5am this morning!</p>
+			<br>
+			<hr>
+			<br>
+			
+			<c:forEach var="score" items="${scores}">
+
+				<p>${score}</p>
+
+			</c:forEach>
+
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		</c:if>
+
+		<c:if test="${ empty wordsearch}">
 			<div class="alert alert-danger">
 				<p>Word Search Not Found or Present.</p>
 			</div>
 		</c:if>
+
 
 		<c:if test="${! empty error}">
 			<div class="alert alert-danger" role="alert">${error}</div>
@@ -36,7 +256,9 @@
 			<c:set var="puzzle" value="${wordsearch.puzzle}" />
 			<c:set var="solution" value="${wordsearch.solution}" />
 			<c:set var="image" value="${wordsearch.image}" />
-
+			<c:set var="sentence" value="${wordsearch.sentence}" />
+			<c:set var="id" value="${wordsearch.id}" />
+			<c:set var="title" value="${wordsearch.title}" />
 			<c:choose>
 				<c:when test="${fn:startsWith(image, 'http')}">
 					<c:set var="image" value="${image}" />
@@ -78,23 +300,24 @@
 
 
 
-									<div class="row">
-										<div class="col">
-											<p>
-												<span class="text-primary">(${wordsearch.id})</span> <span><strong>Title: </strong></span>${wordsearch.title}</p>
-										</div>
-										<div class="col">
-											<p>
-												<span><strong>Sentence: </strong></span>${wordsearch.sentence}</p>
-										</div>
+							<div class="row">
+								<div class="col">
+									<p>
+										<span class="text-primary">(${wordsearch.id})</span> <span><strong>Title:
+										</strong></span>${wordsearch.title}</p>
+								</div>
+								<div class="col">
+									<p>
+										<span><strong>Sentence: </strong></span>${wordsearch.sentence}</p>
+								</div>
 
-										<div class="col">
-											<p>
-												<span><strong>Columns, Rows: </strong></span>${wordsearch.cols},
-												${wordsearch.rows}
-											</p>
-										</div>
-									</div>
+								<div class="col">
+									<p>
+										<span><strong>Columns, Rows: </strong></span>${wordsearch.cols},
+										${wordsearch.rows}
+									</p>
+								</div>
+							</div>
 
 
 							<div class="row">
@@ -143,7 +366,7 @@
 											<br>
 
 											<a target="_blank"
-												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
+												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}&title=${title}&sentence=${sentence}&id=${id}">Play</a>
 
 											<br>
 
@@ -177,7 +400,7 @@
 											<br>
 
 											<a target="_blank"
-												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
+												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}&title=${title}&sentence=${sentence}&id=${id}">Play</a>
 
 											<br>
 
@@ -212,8 +435,8 @@
 		crossorigin="anonymous"></script>
 
 	<jsp:include page="_tail.jsp" />
-	
-		
+
+
 	<br>
 	<br>
 	<br>
@@ -250,7 +473,7 @@
 	<br>
 	<br>
 	<br>
-	
+
 
 </body>
 

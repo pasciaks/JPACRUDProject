@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -31,6 +32,8 @@ import jakarta.servlet.ServletContext;
 public class WordsearchController {
 
 	private static int puzzleCounter = 0;
+
+	private static List<String> scores = new ArrayList<String>();
 
 	private WordsearchDAO dao;
 
@@ -64,6 +67,18 @@ public class WordsearchController {
 	public String increaseAlgorithm(RedirectAttributes redir) {
 		puzzleCounter++;
 		return "redirect:/";
+	}
+
+	@PostMapping("score.do")
+	public String postScore(@RequestParam("id") String id, @RequestParam("score") String score,
+			@RequestParam("player") String player, Model model) {
+		player = player.replaceAll("[^A-Za-z0-9 ]", "");
+		id = id.replaceAll("[^A-Za-z0-9]", "");
+		score = score.replaceAll("[^A-Za-z0-9. ]", "");
+		scores.add(id + "," + player + "," + score);
+		System.out.println("scores: " + scores);
+		model.addAttribute("scores", scores);
+		return "success";
 	}
 
 	@PostMapping("delete.do")
@@ -126,8 +141,9 @@ public class WordsearchController {
 		int cols = random.nextInt(5) + 7;
 		String title = "Sheldon's Wordsearch Puzzle";
 		String sentence = "SHELDON PASCIAK SKILL DISTILLERY JAVA SPRING BOOT";
+		sentence = "TEST TEST";
 		PuzzleResult pr = createPuzzleData(title, sentence, cols, rows);
-
+		model.addAttribute("id", 0);
 		model.addAttribute("title", title);
 		model.addAttribute("sentence", sentence);
 		model.addAttribute("cols", cols);

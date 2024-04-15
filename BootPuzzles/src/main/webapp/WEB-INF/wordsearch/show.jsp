@@ -21,7 +21,9 @@
 			<c:set var="puzzle" value="${wordsearch.puzzle}" />
 			<c:set var="solution" value="${wordsearch.solution}" />
 			<c:set var="image" value="${wordsearch.image}" />
-
+			<c:set var="sentence" value="${wordsearch.sentence}" />
+			<c:set var="id" value="${wordsearch.id}" />
+			<c:set var="title" value="${wordsearch.title}" />
 			<c:set var="url" value="${pageContext.request.contextPath}" />
 
 			<div class="row text-success">
@@ -127,7 +129,7 @@
 											<br>
 
 											<a target="_blank"
-												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
+												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}&title=${title}&sentence=${sentence}&id=${id}">Play</a>
 
 											<br>
 
@@ -161,7 +163,7 @@
 											<br>
 
 											<a target="_blank"
-												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
+												href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}&title=${title}&sentence=${sentence}&id=${id}">Play</a>
 
 											<br>
 

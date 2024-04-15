@@ -27,7 +27,7 @@ ul, li {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	color:white;
+	color: white;
 }
 
 a {
@@ -73,9 +73,16 @@ a:visted {
 				</div>
 
 				<br>
+				
 				<ul id="info">
-					<li></li>
 				</ul>
+				
+				<form id="scoreForm" method="POST" action="http://localhost:8083/score.do">
+					<input class="bg-secondary" hidden type="text" id="puzzleid" name="id" value="" required>
+					<input class="bg-secondary" hidden type="text" id="score" name="score" required value="">
+					<input type="text" id="player" name="player" required value="" placeholder="Enter your name">
+					<input id="saveButton" type="submit" value="Save Your Score">
+				</form>
 
 			</div>
 
@@ -83,6 +90,10 @@ a:visted {
 	</div>
 
 	<script defer>
+	
+	var timeNow =  Date.now();
+	
+	var solvedTime = 0;
 
         var canvas = document.getElementById('myCanvas');
 
@@ -100,8 +111,10 @@ a:visted {
         var myTileObjects = new Array();
 
         function getMousePos(canvas, evt) {
+        	
             var rect = canvas.getBoundingClientRect();
-            console.log(evt);
+ 
+
             try {
                 return {
                     x: evt.clientX - rect.left,
@@ -122,7 +135,27 @@ a:visted {
                 results = regex.exec(location.search);
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
+        
+        var playing = true;
 
+        var title = getParameterByName("title")
+        var sentence = getParameterByName("sentence");
+        var id = getParameterByName("id");
+        
+
+		document.getElementById('puzzleid').value = id;
+        
+        var words = sentence.toUpperCase().split(" ");
+        
+        var ul = document.getElementById('info');
+        
+        for (var jj=0;jj<words.length;jj++) {
+        	theWord = words[jj];
+            var li = document.createElement('li');
+            li.textContent = theWord.trim().toUpperCase();
+            ul.appendChild(li);
+        }
+        
         var globalString = "";
         var touchsize = 10;
         var mouseButton = 0;
@@ -157,8 +190,6 @@ a:visted {
         var rows = 10;
 
         var puzzleData = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ............................Y......................E......................L............S.........N..........H....S......AS.......A......HELLY..T......R..........T.........O..........O.T.......N..........C........NODLEH......S...T..........AS.........SE........L.............V......I.............E......E.........S..........H...........A........S.............N......................DRA....................................................................................................";
-        puzzleData = "■■■■■■■■■■■■EC■L■SH■■■■AAE■■E■■■■■HC■NL■■■AM■I■OD■■■RY■M■■■■■■■■■■A■■■■■■■■HS■AY■■■YEL■■NR■■■■■■■■■B";
-        puzzleData = scramble(puzzleData);
 
         window.requestAnimFrame = (function () {
             return window.requestAnimationFrame ||
@@ -509,9 +540,28 @@ a:visted {
         function canv_mouseup(evt) {
 
             var ul = document.getElementById('info');
-            var li = document.createElement('li');
-            li.textContent = globalString;
-            ul.appendChild(li);
+
+            
+           for (var i = 0; i < ul.children.length; i++) {
+        	   li = ul.children[i];
+        	   console.log(globalString);
+        	   console.log(li.textContent);
+            	if (li.textContent == globalString) {
+            		console.log("match");
+             	   console.log(globalString);
+            	   console.log(li.textContent);
+				ul.removeChild(li);
+            	break;
+            	}
+			};
+			
+		 	if (ul.children.length == 0  && playing == true) {
+        		document.getElementById('score').value = ( Date.now() - timeNow ) / 1000;
+        		alert("You have found all the words!");
+        		playing = false;
+        	}
+            
+
 
             globalString = "";
 

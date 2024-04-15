@@ -71,7 +71,7 @@ strong {
 								<br>
 
 								<a target="_blank"
-									href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}">Play</a>
+									href="index.html?cols=${cols}&rows=${rows}&puzzleString=${puzzle}&title=${title}&sentence=${sentence}&id=${id}">Play</a>
 
 								<br>
 
@@ -100,7 +100,7 @@ strong {
 								<br>
 
 								<a target="_blank"
-									href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}">Play</a>
+									href="index.html?cols=${cols}&rows=${rows}&puzzleString=${solution}&title=${title}&sentence=${sentence}&id=${id}">Play</a>
 
 								<br>
 
