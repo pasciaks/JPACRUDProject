@@ -184,13 +184,19 @@ JPACrudProject
 
 ### Home page route dynamically creates a puzzle to demo.
 
-![Demo Screenshots](4.png)
+![Demo Screenshots](1.png)
 
 <hr>
 
 ### 'R'eading will generate a Table view that shows the list of puzzles.
 
 ![Demo Screenshots](5.png)
+
+<hr>
+
+### 'R'eading also allows searching by Id.
+
+![Demo Screenshots](4.png)
 
 <hr>
 
