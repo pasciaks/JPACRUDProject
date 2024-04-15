@@ -46,6 +46,8 @@
 
 ![Database Schema](2.png)
 
+![Database Schema](12.png)
+
 <hr>
 
 ### The power of this app comes from weeks long development of a word-search hiding utility and related random/path based algorithms that I personally developed since the start of this cohort.
