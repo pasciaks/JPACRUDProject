@@ -60,7 +60,7 @@
 						<label class="" for="file">Image Upload:</label>
 					</div>
 					<div class="col">
-						<input id="file" class="btn btn-success" type="file" name="file"
+						<input disabled id="file" class="btn btn-success" type="file" name="file"
 							accept="image/png" value="Upload PNG Image" />
 					</div>
 				</div>
