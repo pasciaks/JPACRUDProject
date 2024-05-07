@@ -244,6 +244,17 @@ public class WordsearchController {
 			try {
 				byte[] bytes = file.getBytes();
 				Path path = Paths.get(context.getRealPath("uploads") + File.separator + uuid.toString() + ".png");
+				// Path pathUp = Paths.get(context.getRealPath("uploads") + File.separator +
+				// uuid.toString() + ".png");
+
+				// replace 'webapp' with 'resources' in the path
+				// pathUp = Paths.get(path.toString().replace("webapp", "resources"));
+
+				// TODO: trouble shoot to where the uploads needs to go for public access, might
+				// be just that extra /
+				// that was causing live view issues when the images were in ../uploads.. ??
+
+				System.out.println(path);
 
 				System.out.println(path);
 				Files.write(path, bytes);
